@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>National Surveillance System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+        
+        .login-container {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .login-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            padding: 30px;
+        }
+        
+        .app-logo {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 25px;
+        }
+        
+        .app-logo i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .app-logo h1 {
+            font-weight: 600;
+            font-size: 1.8rem;
+        }
+        
+        .navbar-brand {
+            font-weight: 600;
+        }
+        
+        .sidebar {
+            background-color: var(--primary);
+            color: white;
+            height: calc(100vh - 56px);
+            padding: 0;
+        }
+        
+        .sidebar .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            padding: 15px 20px;
+            border-left: 4px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .sidebar .nav-link i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .main-content {
+            padding: 20px;
+            height: calc(100vh - 56px);
+            overflow-y: auto;
+        }
+        
+        .dashboard-card {
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+            height: 100%;
+        }
+        
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .form-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+        }
+        
+        .data-table {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .stats-number {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+        
+        .btn-primary {
+            background-color: var(--secondary);
+            border-color: var(--secondary);
+        }
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
+            border-color: #2980b9;
+        }
+        
+        .action-buttons .btn {
+            margin-right: 5px;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen" class="login-container">
+        <div class="login-card">
+            <div class="app-logo">
+                <i class="fas fa-clinic-medical"></i>
+                <h1>National Surveillance System</h1>
+            </div>
+            <form id="login-form">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100" id="login-btn">
+                    <span id="login-text">Login</span>
+                    <span id="login-loading" class="loading d-none"></span>
+                </button>
+            </form>
+            <div id="login-message" class="alert alert-danger mt-3 d-none"></div>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div id="app-container" class="d-none">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <i class="fas fa-clinic-medical me-2"></i>
+                    National Surveillance System
+                </a>
+                <div class="d-flex align-items-center">
+                    <span class="text-light me-3" id="user-info">Welcome, User</span>
+                    <button class="btn btn-outline-light btn-sm" id="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <div class="col-md-2 sidebar">
+                    <div class="d-flex flex-column p-3">
+                        <ul class="nav nav-pills flex-column mb-auto">
+                            <li class="nav-item">
+                                <a href="#dashboard" class="nav-link active" data-section="dashboard">
+                                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#specialists" class="nav-link" data-section="specialists">
+                                    <i class="fas fa-user-md"></i> Specialists
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#general-data" class="nav-link" data-section="general-data">
+                                    <i class="fas fa-hospital"></i> General Data
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#training" class="nav-link" data-section="training">
+                                    <i class="fas fa-graduation-cap"></i> Training
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#monthly-updates" class="nav-link" data-section="monthly-updates">
+                                    <i class="fas fa-calendar-alt"></i> Monthly Updates
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#feedback" class="nav-link" data-section="feedback">
+                                    <i class="fas fa-comments"></i> Feedback
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="col-md-10 main-content">
+                    <!-- Dashboard Section -->
+                    <div id="dashboard-section" class="content-section">
+                        <h2 class="mb-4">Dashboard</h2>
+                        <div class="row mb-4">
+                            <div class="col-md-3 mb-3">
+                                <div class="card dashboard-card">
+                                    <div class="card-body text-center">
+                                        <div class="card-icon">
+                                            <i class="fas fa-user-md"></i>
+                                        </div>
+                                        <h5 class="card-title">Specialists</h5>
+                                        <p class="stats-number" id="specialists-count">0</p>
+                                        <p class="text-muted">Registered medical specialists</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="card dashboard-card">
+                                    <div class="card-body text-center">
+                                        <div class="card-icon">
+                                            <i class="fas fa-hospital"></i>
+                                        </div>
+                                        <h5 class="card-title">Hospitals</h5>
+                                        <p class="stats-number" id="hospitals-count">0</p>
+                                        <p class="text-muted">Participating institutions</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="card dashboard-card">
+                                    <div class="card-body text-center">
+                                        <div class="card-icon">
+                                            <i class="fas fa-graduation-cap"></i>
+                                        </div>
+                                        <h5 class="card-title">Training</h5>
+                                        <p class="stats-number" id="training-count">0</p>
+                                        <p class="text-muted">Ongoing training programs</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="card dashboard-card">
+                                    <div class="card-body text-center">
+                                        <div class="card-icon">
+                                            <i class="fas fa-comments"></i>
+                                        </div>
+                                        <h5 class="card-title">Feedback</h5>
+                                        <p class="stats-number" id="feedback-count">0</p>
+                                        <p class="text-muted">Pending feedback items</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="form-section">
+                                    <h4 class="mb-4">Recent Specialists</h4>
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Specialty</th>
+                                                    <th>Hospital</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="recent-specialists">
+                                                <!-- Data loaded from backend -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="form-section">
+                                    <h4 class="mb-4">System Updates</h4>
+                                    <div class="list-group" id="system-updates">
+                                        <!-- Updates loaded from backend -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Specialists Section -->
+                    <div id="specialists-section" class="content-section d-none">
+                        <h2 class="mb-4">Specialist Management</h2>
+                        
+                        <div class="form-section mb-4">
+                            <h4 class="mb-4">Add New Specialist</h4>
+                            <form id="specialist-form">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="fullName" class="form-label">Full Name</label>
+                                        <input type="text" class="form-control" id="fullName" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="nic" class="form-label">NIC Number</label>
+                                        <input type="text" class="form-control" id="nic" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="specialty" class="form-label">Specialty</label>
+                                        <select class="form-select" id="specialty" required>
+                                            <option value="">Select Specialty</option>
+                                            <option value="Cardiology">Cardiology</option>
+                                            <option value="Neurology">Neurology</option>
+                                            <option value="Pediatrics">Pediatrics</option>
+                                            <option value="Surgery">Surgery</option>
+                                            <option value="Oncology">Oncology</option>
+                                            <option value="Psychiatry">Psychiatry</option>
+                                            <option value="Dermatology">Dermatology</option>
+                                            <option value="Orthopedics">Orthopedics</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="grade" class="form-label">Grade</label>
+                                        <select class="form-select" id="grade" required>
+                                            <option value="">Select Grade</option>
+                                            <option value="Consultant">Consultant</option>
+                                            <option value="Senior Registrar">Senior Registrar</option>
+                                            <option value="Registrar">Registrar</option>
+                                            <option value="Senior House Officer">Senior House Officer</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="appointmentDate" class="form-label">Appointment Date</label>
+                                        <input type="date" class="form-control" id="appointmentDate" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="transferOrderNo" class="form-label">Transfer Order Number</label>
+                                        <input type="text" class="form-control" id="transferOrderNo">
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="contact" class="form-label">Contact Number</label>
+                                        <input type="tel" class="form-control" id="contact" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="email" class="form-label">Email Address</label>
+                                        <input type="email" class="form-control" id="email">
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="currentHospital" class="form-label">Current Hospital</label>
+                                    <input type="text" class="form-control" id="currentHospital" required>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary" id="add-specialist-btn">
+                                    <span id="add-text">Add Specialist</span>
+                                    <span id="add-loading" class="loading d-none"></span>
+                                </button>
+                            </form>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h4 class="mb-4">Specialist Records</h4>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex">
+                                    <input type="text" class="form-control me-2" id="search-specialists" placeholder="Search specialists..." style="width: 300px;">
+                                    <button class="btn btn-outline-secondary" id="search-btn">Search</button>
+                                </div>
+                                <div>
+                                    <button class="btn btn-outline-primary" id="export-specialists">
+                                        <i class="fas fa-download"></i> Export
+                                    </button>
+                                    <button class="btn btn-outline-success" id="refresh-specialists">
+                                        <i class="fas fa-sync-alt"></i> Refresh
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Specialty</th>
+                                            <th>Grade</th>
+                                            <th>Hospital</th>
+                                            <th>Contact</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="specialists-table">
+                                        <!-- Data loaded from backend -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <nav aria-label="Page navigation" id="pagination-container">
+                                <!-- Pagination loaded dynamically -->
+                            </nav>
+                        </div>
+                    </div>
+
+                    <!-- General Data Section -->
+                    <div id="general-data-section" class="content-section d-none">
+                        <h2 class="mb-4">General Institution Data</h2>
+                        
+                        <div class="form-section mb-4">
+                            <h4 class="mb-4">Add Hospital/Institution</h4>
+                            <form id="hospital-form">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="hospitalName" class="form-label">Hospital Name</label>
+                                        <input type="text" class="form-control" id="hospitalName" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="hospitalType" class="form-label">Type</label>
+                                        <select class="form-select" id="hospitalType" required>
+                                            <option value="">Select Type</option>
+                                            <option value="Teaching Hospital">Teaching Hospital</option>
+                                            <option value="General Hospital">General Hospital</option>
+                                            <option value="Specialized Hospital">Specialized Hospital</option>
+                                            <option value="Private Hospital">Private Hospital</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="province" class="form-label">Province</label>
+                                        <select class="form-select" id="province" required>
+                                            <option value="">Select Province</option>
+                                            <option value="Western">Western</option>
+                                            <option value="Central">Central</option>
+                                            <option value="Southern">Southern</option>
+                                            <option value="Eastern">Eastern</option>
+                                            <option value="Northern">Northern</option>
+                                            <option value="North Western">North Western</option>
+                                            <option value="North Central">North Central</option>
+                                            <option value="Uva">Uva</option>
+                                            <option value="Sabaragamuwa">Sabaragamuwa</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="district" class="form-label">District</label>
+                                        <input type="text" class="form-control" id="district" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="bedCapacity" class="form-label">Bed Capacity</label>
+                                        <input type="number" class="form-control" id="bedCapacity" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="hospitalPhone" class="form-label">Phone Number</label>
+                                        <input type="tel" class="form-control" id="hospitalPhone">
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="hospitalAddress" class="form-label">Address</label>
+                                    <textarea class="form-control" id="hospitalAddress" rows="3" required></textarea>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary">Add Hospital</button>
+                            </form>
+                        </div>
+
+                        <div class="form-section">
+                            <h4 class="mb-4">Hospital Records</h4>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Province</th>
+                                            <th>Bed Capacity</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="hospitals-table">
+                                        <!-- Data loaded from backend -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Training Section -->
+                    <div id="training-section" class="content-section d-none">
+                        <h2 class="mb-4">Training Programs</h2>
+                        
+                        <div class="form-section mb-4">
+                            <h4 class="mb-4">Add Training Program</h4>
+                            <form id="training-form">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="trainingTitle" class="form-label">Training Title</label>
+                                        <input type="text" class="form-control" id="trainingTitle" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="trainingType" class="form-label">Training Type</label>
+                                        <select class="form-select" id="trainingType" required>
+                                            <option value="">Select Type</option>
+                                            <option value="Medical Procedures">Medical Procedures</option>
+                                            <option value="Emergency Response">Emergency Response</option>
+                                            <option value="Technology Training">Technology Training</option>
+                                            <option value="Surveillance Systems">Surveillance Systems</option>
+                                            <option value="Data Management">Data Management</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="startDate" class="form-label">Start Date</label>
+                                        <input type="date" class="form-control" id="startDate" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="endDate" class="form-label">End Date</label>
+                                        <input type="date" class="form-control" id="endDate" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="instructor" class="form-label">Instructor</label>
+                                        <input type="text" class="form-control" id="instructor" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="maxParticipants" class="form-label">Max Participants</label>
+                                        <input type="number" class="form-control" id="maxParticipants" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="trainingDescription" class="form-label">Description</label>
+                                    <textarea class="form-control" id="trainingDescription" rows="3" required></textarea>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary">Add Training Program</button>
+                            </form>
+                        </div>
+
+                        <div class="form-section">
+                            <h4 class="mb-4">Training Programs</h4>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Type</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Instructor</th>
+                                            <th>Participants</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="training-table">
+                                        <!-- Data loaded from backend -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Monthly Updates Section -->
+                    <div id="monthly-updates-section" class="content-section d-none">
+                        <h2 class="mb-4">Monthly Updates</h2>
+                        
+                        <div class="form-section mb-4">
+                            <h4 class="mb-4">Submit Monthly Report</h4>
+                            <form id="monthly-form">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="reportMonth" class="form-label">Report Month</label>
+                                        <input type="month" class="form-control" id="reportMonth" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="reportingHospital" class="form-label">Reporting Hospital</label>
+                                        <input type="text" class="form-control" id="reportingHospital" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <label for="patientCount" class="form-label">Total Patients</label>
+                                        <input type="number" class="form-control" id="patientCount" required>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="emergencyCount" class="form-label">Emergency Cases</label>
+                                        <input type="number" class="form-control" id="emergencyCount" required>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="specialistConsults" class="form-label">Specialist Consultations</label>
+                                        <input type="number" class="form-control" id="specialistConsults" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="keyIssues" class="form-label">Key Issues/Challenges</label>
+                                    <textarea class="form-control" id="keyIssues" rows="4"></textarea>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="improvements" class="form-label">Improvements/Achievements</label>
+                                    <textarea class="form-control" id="improvements" rows="4"></textarea>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary">Submit Monthly Report</button>
+                            </form>
+                        </div>
+
+                        <div class="form-section">
+                            <h4 class="mb-4">Monthly Reports</h4>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Month</th>
+                                            <th>Hospital</th>
+                                            <th>Total Patients</th>
+                                            <th>Emergency Cases</th>
+                                            <th>Submitted Date</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="monthly-reports-table">
+                                        <!-- Data loaded from backend -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feedback Section -->
+                    <div id="feedback-section" class="content-section d-none">
+                        <h2 class="mb-4">Feedback System</h2>
+                        
+                        <div class="form-section mb-4">
+                            <h4 class="mb-4">Submit Feedback</h4>
+                            <form id="feedback-form">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="feedbackType" class="form-label">Feedback Type</label>
+                                        <select class="form-select" id="feedbackType" required>
+                                            <option value="">Select Type</option>
+                                            <option value="Bug Report">Bug Report</option>
+                                            <option value="Feature Request">Feature Request</option>
+                                            <option value="System Improvement">System Improvement</option>
+                                            <option value="Training Feedback">Training Feedback</option>
+                                            <option value="General Feedback">General Feedback</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="priority" class="form-label">Priority</label>
+                                        <select class="form-select" id="priority" required>
+                                            <option value="">Select Priority</option>
+                                            <option value="Low">Low</option>
+                                            <option value="Medium">Medium</option>
+                                            <option value="High">High</option>
+                                            <option value="Critical">Critical</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="submitterName" class="form-label">Your Name</label>
+                                        <input type="text" class="form-control" id="submitterName" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="submitterEmail" class="form-label">Your Email</label>
+                                        <input type="email" class="form-control" id="submitterEmail" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="feedbackTitle" class="form-label">Title</label>
+                                    <input type="text" class="form-control" id="feedbackTitle" required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="feedbackDescription" class="form-label">Description</label>
+                                    <textarea class="form-control" id="feedbackDescription" rows="5" required></textarea>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary">Submit Feedback</button>
+                            </form>
+                        </div>
+
+                        <div class="form-section">
+                            <h4 class="mb-4">Feedback History</h4>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Type</th>
+                                            <th>Title</th>
+                                            <th>Priority</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="feedback-table">
+                                        <!-- Data loaded from backend -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Configuration - Replace with your actual Google Apps Script URL
+        const GAS_URL = 'https://script.google.com/macros/s/AKfycbxaD3m_9_JQE-XuqQUy9lsPJtPV7L6_HXn1BGowxqqLT2k2prrT2t7qKjwcyOwKW3Uu/exec';
+        
+        // Global variables
+        let currentUser = null;
+        let currentPage = 1;
+        const itemsPerPage = 10;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+        });
+
+        function initializeApp() {
+            // Initialize event listeners
+            setupEventListeners();
+            
+            // Load initial data
+            loadDashboardData();
+        }
+
+        function setupEventListeners() {
+            // Login form
+            document.getElementById('login-form').addEventListener('submit', handleLogin);
+            
+            // Logout
+            document.getElementById('logout-btn').addEventListener('click', handleLogout);
+            
+            // Sidebar navigation
+            document.querySelectorAll('.sidebar .nav-link').forEach(link => {
+                link.addEventListener('click', handleNavigation);
+            });
+            
+            // Forms
+            document.getElementById('specialist-form').addEventListener('submit', handleSpecialistSubmit);
+            document.getElementById('hospital-form').addEventListener('submit', handleHospitalSubmit);
+            document.getElementById('training-form').addEventListener('submit', handleTrainingSubmit);
+            document.getElementById('monthly-form').addEventListener('submit', handleMonthlySubmit);
+            document.getElementById('feedback-form').addEventListener('submit', handleFeedbackSubmit);
+            
+            // Search and refresh buttons
+            document.getElementById('search-btn').addEventListener('click', searchSpecialists);
+            document.getElementById('refresh-specialists').addEventListener('click', loadSpecialists);
+            document.getElementById('export-specialists').addEventListener('click', exportSpecialists);
+        }
+
+        // Authentication
+        async function handleLogin(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            showLoading('login');
+            
+            try {
+                const response = await callGAS('login', { username, password });
+                
+                if (response.success) {
+                    currentUser = response.user;
+                    showApp();
+                    document.getElementById('user-info').textContent = `Welcome, ${currentUser.name}`;
+                    loadDashboardData();
+                } else {
+                    showLoginMessage(response.message || 'Invalid credentials');
+                }
+            } catch (error) {
+                showLoginMessage('Login failed. Please try again.');
+                console.error('Login error:', error);
+            }
+            
+            hideLoading('login');
+        }
+
+        function handleLogout() {
+            currentUser = null;
+            showLogin();
+            document.getElementById('login-form').reset();
+        }
+
+        function showApp() {
+            document.getElementById('login-screen').classList.add('d-none');
+            document.getElementById('app-container').classList.remove('d-none');
+        }
+
+        function showLogin() {
+            document.getElementById('login-screen').classList.remove('d-none');
+            document.getElementById('app-container').classList.add('d-none');
+        }
+
+        // Navigation
+        function handleNavigation(e) {
+            e.preventDefault();
+            
+            // Update active link
+            document.querySelectorAll('.sidebar .nav-link').forEach(l => l.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Show corresponding section
+            const sectionId = `${this.getAttribute('data-section')}-section`;
+            document.querySelectorAll('.content-section').forEach(section => section.classList.add('d-none'));
+            document.getElementById(sectionId).classList.remove('d-none');
+            
+            // Load section-specific data
+            loadSectionData(this.getAttribute('data-section'));
+        }
+
+        // Data Loading
+        async function loadDashboardData() {
+            try {
+                const data = await callGAS('getDashboardData');
+                if (data.success) {
+                    updateDashboardStats(data.stats);
+                    loadRecentSpecialists(data.recentSpecialists);
+                    loadSystemUpdates(data.systemUpdates);
+                }
+            } catch (error) {
+                console.error('Dashboard load error:', error);
+            }
+        }
+
+        async function loadSectionData(section) {
+            switch (section) {
+                case 'specialists':
+                    loadSpecialists();
+                    break;
+                case 'general-data':
+                    loadHospitals();
+                    break;
+                case 'training':
+                    loadTraining();
+                    break;
+                case 'monthly-updates':
+                    loadMonthlyReports();
+                    break;
+                case 'feedback':
+                    loadFeedback();
+                    break;
+            }
+        }
+
+        async function loadSpecialists() {
+            try {
+                const response = await callGAS('getSpecialists', { page: currentPage, limit: itemsPerPage });
+                if (response.success) {
+                    displaySpecialists(response.specialists);
+                    updatePagination(response.totalPages, currentPage, 'specialists');
+                }
+            } catch (error) {
+                console.error('Load specialists error:', error);
+            }
+        }
+
+        async function loadHospitals() {
+            try {
+                const response = await callGAS('getHospitals');
+                if (response.success) {
+                    displayHospitals(response.hospitals);
+                }
+            } catch (error) {
+                console.error('Load hospitals error:', error);
+            }
+        }
+
+        async function loadTraining() {
+            try {
+                const response = await callGAS('getTraining');
+                if (response.success) {
+                    displayTraining(response.training);
+                }
+            } catch (error) {
+                console.error('Load training error:', error);
+            }
+        }
+
+        async function loadMonthlyReports() {
+            try {
+                const response = await callGAS('getMonthlyReports');
+                if (response.success) {
+                    displayMonthlyReports(response.reports);
+                }
+            } catch (error) {
+                console.error('Load monthly reports error:', error);
+            }
+        }
+
+        async function loadFeedback() {
+            try {
+                const response = await callGAS('getFeedback');
+                if (response.success) {
+                    displayFeedback(response.feedback);
+                }
+            } catch (error) {
+                console.error('Load feedback error:', error);
+            }
+        }
+
+        // Form Handlers
+        async function handleSpecialistSubmit(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const specialistData = Object.fromEntries(formData.entries());
+            
+            showLoading('add-specialist');
+            
+            try {
+                const response = await callGAS('addSpecialist', specialistData);
+                
+                if (response.success) {
+                    showAlert('success', 'Specialist added successfully!');
+                    e.target.reset();
+                    loadSpecialists();
+                    loadDashboardData();
+                } else {
+                    showAlert('error', response.message || 'Failed to add specialist');
+                }
+            } catch (error) {
+                showAlert('error', 'Failed to add specialist. Please try again.');
+                console.error('Add specialist error:', error);
+            }
+            
+            hideLoading('add-specialist');
+        }
+
+        async function handleHospitalSubmit(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const hospitalData = Object.fromEntries(formData.entries());
+            
+            try {
+                const response = await callGAS('addHospital', hospitalData);
+                
+                if (response.success) {
+                    showAlert('success', 'Hospital added successfully!');
+                    e.target.reset();
+                    loadHospitals();
+                } else {
+                    showAlert('error', response.message || 'Failed to add hospital');
+                }
+            } catch (error) {
+                showAlert('error', 'Failed to add hospital. Please try again.');
+                console.error('Add hospital error:', error);
+            }
+        }
+
+        async function handleTrainingSubmit(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const trainingData = Object.fromEntries(formData.entries());
+            
+            try {
+                const response = await callGAS('addTraining', trainingData);
+                
+                if (response.success) {
+                    showAlert('success', 'Training program added successfully!');
+                    e.target.reset();
+                    loadTraining();
+                } else {
+                    showAlert('error', response.message || 'Failed to add training program');
+                }
+            } catch (error) {
+                showAlert('error', 'Failed to add training program. Please try again.');
+                console.error('Add training error:', error);
+            }
+        }
+
+        async function handleMonthlySubmit(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const monthlyData = Object.fromEntries(formData.entries());
+            
+            try {
+                const response = await callGAS('addMonthlyReport', monthlyData);
+                
+                if (response.success) {
+                    showAlert('success', 'Monthly report submitted successfully!');
+                    e.target.reset();
+                    loadMonthlyReports();
+                } else {
+                    showAlert('error', response.message || 'Failed to submit monthly report');
+                }
+            } catch (error) {
+                showAlert('error', 'Failed to submit monthly report. Please try again.');
+                console.error('Add monthly report error:', error);
+            }
+        }
+
+        async function handleFeedbackSubmit(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const feedbackData = Object.fromEntries(formData.entries());
+            
+            try {
+                const response = await callGAS('addFeedback', feedbackData);
+                
+                if (response.success) {
+                    showAlert('success', 'Feedback submitted successfully!');
+                    e.target.reset();
+                    loadFeedback();
+                } else {
+                    showAlert('error', response.message || 'Failed to submit feedback');
+                }
+            } catch (error) {
+                showAlert('error', 'Failed to submit feedback. Please try again.');
+                console.error('Add feedback error:', error);
+            }
+        }
+
+        // Display Functions
+        function updateDashboardStats(stats) {
+            document.getElementById('specialists-count').textContent = stats.specialists || 0;
+            document.getElementById('hospitals-count').textContent = stats.hospitals || 0;
+            document.getElementById('training-count').textContent = stats.training || 0;
+            document.getElementById('feedback-count').textContent = stats.feedback || 0;
+        }
+
+        function loadRecentSpecialists(specialists) {
+            const tbody = document.getElementById('recent-specialists');
+            tbody.innerHTML = specialists.map(specialist => `
+                <tr>
+                    <td>${specialist.fullName}</td>
+                    <td>${specialist.specialty}</td>
+                    <td>${specialist.currentHospital}</td>
+                </tr>
+            `).join('');
+        }
+
+        function loadSystemUpdates(updates) {
+            const container = document.getElementById('system-updates');
+            container.innerHTML = updates.map(update => `
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="mb-1">${update.title}</h6>
+                        <p class="mb-1">${update.description}</p>
+                    </div>
+                    <small class="text-muted">${update.date}</small>
+                </div>
+            `).join('');
+        }
+
+        function displaySpecialists(specialists) {
+            const tbody = document.getElementById('specialists-table');
+            tbody.innerHTML = specialists.map(specialist => `
+                <tr>
+                    <td>${specialist.fullName}</td>
+                    <td>${specialist.specialty}</td>
+                    <td>${specialist.grade}</td>
+                    <td>${specialist.currentHospital}</td>
+                    <td>${specialist.contact}</td>
+                    <td class="action-buttons">
+                        <button class="btn btn-sm btn-info" onclick="viewSpecialist('${specialist.id}')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn btn-sm btn-warning" onclick="editSpecialist('${specialist.id}')">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteSpecialist('${specialist.id}')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function displayHospitals(hospitals) {
+            const tbody = document.getElementById('hospitals-table');
+            tbody.innerHTML = hospitals.map(hospital => `
+                <tr>
+                    <td>${hospital.hospitalName}</td>
+                    <td>${hospital.hospitalType}</td>
+                    <td>${hospital.province}</td>
+                    <td>${hospital.bedCapacity}</td>
+                    <td class="action-buttons">
+                        <button class="btn btn-sm btn-info" onclick="viewHospital('${hospital.id}')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn btn-sm btn-warning" onclick="editHospital('${hospital.id}')">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteHospital('${hospital.id}')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function displayTraining(training) {
+            const tbody = document.getElementById('training-table');
+            tbody.innerHTML = training.map(program => `
+                <tr>
+                    <td>${program.trainingTitle}</td>
+                    <td>${program.trainingType}</td>
+                    <td>${program.startDate}</td>
+                    <td>${program.endDate}</td>
+                    <td>${program.instructor}</td>
+                    <td>${program.currentParticipants}/${program.maxParticipants}</td>
+                    <td class="action-buttons">
+                        <button class="btn btn-sm btn-info" onclick="viewTraining('${program.id}')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn btn-sm btn-warning" onclick="editTraining('${program.id}')">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteTraining('${program.id}')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function displayMonthlyReports(reports) {
+            const tbody = document.getElementById('monthly-reports-table');
+            tbody.innerHTML = reports.map(report => `
+                <tr>
+                    <td>${report.reportMonth}</td>
+                    <td>${report.reportingHospital}</td>
+                    <td>${report.patientCount}</td>
+                    <td>${report.emergencyCount}</td>
+                    <td>${report.submittedDate}</td>
+                    <td class="action-buttons">
+                        <button class="btn btn-sm btn-info" onclick="viewReport('${report.id}')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn btn-sm btn-warning" onclick="editReport('${report.id}')">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteReport('${report.id}')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function displayFeedback(feedback) {
+            const tbody = document.getElementById('feedback-table');
+            tbody.innerHTML = feedback.map(item => `
+                <tr>
+                    <td>${item.submittedDate}</td>
+                    <td>${item.feedbackType}</td>
+                    <td>${item.feedbackTitle}</td>
+                    <td><span class="badge bg-${getPriorityColor(item.priority)}">${item.priority}</span></td>
+                    <td><span class="badge bg-${getStatusColor(item.status)}">${item.status}</span></td>
+                    <td class="action-buttons">
+                        <button class="btn btn-sm btn-info" onclick="viewFeedback('${item.id}')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn btn-sm btn-warning" onclick="editFeedback('${item.id}')">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteFeedback('${item.id}')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Utility Functions
+        async function callGAS(action, data = {}) {
+            const response = await fetch(GAS_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    action: action,
+                    data: data
+                })
+            });
+            
+            return await response.json();
+        }
+
+        function showLoading(buttonId) {
+            const button = document.getElementById(`${buttonId}-btn`);
+            const text = document.getElementById(`${buttonId}-text`) || button.querySelector('span:not(.loading)');
+            const loading = document.getElementById(`${buttonId}-loading`) || button.querySelector('.loading');
+            
+            if (text) text.classList.add('d-none');
+            if (loading) loading.classList.remove('d-none');
+            if (button) button.disabled = true;
+        }
+
+        function hideLoading(buttonId) {
+            const button = document.getElementById(`${buttonId}-btn`);
+            const text = document.getElementById(`${buttonId}-text`) || button.querySelector('span:not(.loading)');
+            const loading = document.getElementById(`${buttonId}-loading`) || button.querySelector('.loading');
+            
+            if (text) text.classList.remove('d-none');
+            if (loading) loading.classList.add('d-none');
+            if (button) button.disabled = false;
+        }
+
+        function showAlert(type, message) {
+            // Create and show alert
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type === 'error' ? 'danger' : 'success'} alert-dismissible fade show position-fixed`;
+            alertDiv.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+            alertDiv.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            
+            document.body.appendChild(alertDiv);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (alertDiv.parentNode) {
+                    alertDiv.remove();
+                }
+            }, 5000);
+        }
+
+        function showLoginMessage(message) {
+            const loginMessage = document.getElementById('login-message');
+            loginMessage.textContent = message;
+            loginMessage.classList.remove('d-none');
+            setTimeout(() => {
+                loginMessage.classList.add('d-none');
+            }, 3000);
+        }
+
+        function getPriorityColor(priority) {
+            const colors = {
+                'Low': 'success',
+                'Medium': 'warning',
+                'High': 'danger',
+                'Critical': 'dark'
+            };
+            return colors[priority] || 'secondary';
+        }
+
+        function getStatusColor(status) {
+            const colors = {
+                'Open': 'warning',
+                'In Progress': 'info',
+                'Resolved': 'success',
+                'Closed': 'secondary'
+            };
+            return colors[status] || 'secondary';
+        }
+
+        // Search and filter functions
+        async function searchSpecialists() {
+            const searchTerm = document.getElementById('search-specialists').value;
+            try {
+                const response = await callGAS('searchSpecialists', { searchTerm });
+                if (response.success) {
+                    displaySpecialists(response.specialists);
+                }
+            } catch (error) {
+                console.error('Search error:', error);
+            }
+        }
+
+        // Export function
+        async function exportSpecialists() {
+            try {
+                const response = await callGAS('exportSpecialists');
+                if (response.success && response.downloadUrl) {
+                    window.open(response.downloadUrl, '_blank');
+                }
+            } catch (error) {
+                console.error('Export error:', error);
+            }
+        }
+
+        // Pagination
+        function updatePagination(totalPages, currentPageNum, type) {
+            const container = document.getElementById('pagination-container');
+            let paginationHtml = '<ul class="pagination justify-content-center">';
+            
+            // Previous button
+            paginationHtml += `<li class="page-item ${currentPageNum === 1 ? 'disabled' : ''}">
+                <a class="page-link" href="#" onclick="changePage(${currentPageNum - 1}, '${type}')">Previous</a>
+            </li>`;
+            
+            // Page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                paginationHtml += `<li class="page-item ${i === currentPageNum ? 'active' : ''}">
+                    <a class="page-link" href="#" onclick="changePage(${i}, '${type}')">${i}</a>
+                </li>`;
+            }
+            
+            // Next button
+            paginationHtml += `<li class="page-item ${currentPageNum === totalPages ? 'disabled' : ''}">
+                <a class="page-link" href="#" onclick="changePage(${currentPageNum + 1}, '${type}')">Next</a>
+            </li>`;
+            
+            paginationHtml += '</ul>';
+            container.innerHTML = paginationHtml;
+        }
+
+        function changePage(page, type) {
+            currentPage = page;
+            if (type === 'specialists') {
+                loadSpecialists();
+            }
+        }
+
+        // CRUD operations (placeholders)
+        function viewSpecialist(id) { console.log('View specialist:', id); }
+        function editSpecialist(id) { console.log('Edit specialist:', id); }
+        function deleteSpecialist(id) { 
+            if (confirm('Are you sure you want to delete this specialist?')) {
+                console.log('Delete specialist:', id);
+            }
+        }
+
+        function viewHospital(id) { console.log('View hospital:', id); }
+        function editHospital(id) { console.log('Edit hospital:', id); }
+        function deleteHospital(id) { 
+            if (confirm('Are you sure you want to delete this hospital?')) {
+                console.log('Delete hospital:', id);
+            }
+        }
+
+        function viewTraining(id) { console.log('View training:', id); }
+        function editTraining(id) { console.log('Edit training:', id); }
+        function deleteTraining(id) { 
+            if (confirm('Are you sure you want to delete this training program?')) {
+                console.log('Delete training:', id);
+            }
+        }
+
+        function viewReport(id) { console.log('View report:', id); }
+        function editReport(id) { console.log('Edit report:', id); }
+        function deleteReport(id) { 
+            if (confirm('Are you sure you want to delete this report?')) {
+                console.log('Delete report:', id);
+            }
+        }
+
+        function viewFeedback(id) { console.log('View feedback:', id); }
+        function editFeedback(id) { console.log('Edit feedback:', id); }
+        function deleteFeedback(id) { 
+            if (confirm('Are you sure you want to delete this feedback?')) {
+                console.log('Delete feedback:', id);
+            }
+        }
+    </script>
+</body>
+</html>
