@@ -3,1413 +3,2168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>National Surveillance System</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>National Surveillance System - Medical Officers</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --accent: #e74c3c;
-            --light: #ecf0f1;
-            --dark: #2c3e50;
+            --primary: #1e40af;
+            --primary-dark: #1e3a8a;
+            --primary-light: #dbeafe;
+            --secondary: #475569;
+            --success: #059669;
+            --warning: #d97706;
+            --danger: #dc2626;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --border: #e2e8f0;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --hover-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
         }
-        
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+            background-color: #f1f5f9;
+            color: var(--dark);
+            line-height: 1.6;
         }
-        
-        .login-container {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            height: 100vh;
-            display: flex;
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 28px 32px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(32deg);
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+            position: relative;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+            font-weight: 400;
+            position: relative;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid var(--border);
+        }
+
+        .card:hover {
+            box-shadow: var(--hover-shadow);
+        }
+
+        .login-card {
+            max-width: 440px;
+            margin: 60px auto;
+            padding: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.2s ease;
+            background-color: white;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 26px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
         }
-        
-        .login-card {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            width: 400px;
-            padding: 30px;
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--card-shadow);
         }
-        
-        .app-logo {
+
+        .btn-secondary {
+            background: var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background: #374151;
+        }
+
+        .nav-menu {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border);
+        }
+
+        .nav-item {
+            flex: 1;
+            min-width: 140px;
+            padding: 14px 18px;
+            background: white;
+            color: var(--secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
             text-align: center;
+        }
+
+        .nav-item:hover {
+            background: var(--primary-light);
             color: var(--primary);
-            margin-bottom: 25px;
+            border-color: var(--primary-light);
         }
-        
-        .app-logo i {
-            font-size: 3rem;
-            margin-bottom: 15px;
-        }
-        
-        .app-logo h1 {
-            font-weight: 600;
-            font-size: 1.8rem;
-        }
-        
-        .navbar-brand {
-            font-weight: 600;
-        }
-        
-        .sidebar {
-            background-color: var(--primary);
+
+        .nav-item.active {
+            background: var(--primary);
             color: white;
-            height: calc(100vh - 56px);
-            padding: 0;
+            border-color: var(--primary);
         }
-        
-        .sidebar .nav-link {
-            color: rgba(255, 255, 255, 0.8);
-            padding: 15px 20px;
-            border-left: 4px solid transparent;
-            transition: all 0.3s;
+
+        .section {
+            display: none;
         }
-        
-        .sidebar .nav-link:hover, .sidebar .nav-link.active {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-            border-left: 4px solid var(--secondary);
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
         }
-        
-        .sidebar .nav-link i {
-            margin-right: 10px;
-            width: 20px;
-            text-align: center;
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        
-        .main-content {
-            padding: 20px;
-            height: calc(100vh - 56px);
-            overflow-y: auto;
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-bottom: 24px;
         }
-        
-        .dashboard-card {
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s;
-            height: 100%;
+
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
         }
-        
-        .dashboard-card:hover {
-            transform: translateY(-5px);
+
+        .status-available { background-color: var(--success); }
+        .status-transferred { background-color: var(--warning); }
+        .status-temporary { background-color: var(--danger); }
+        .status-vacant { background-color: var(--danger); }
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+            border: 1px solid var(--border);
+            margin-top: 24px;
         }
-        
-        .card-icon {
-            font-size: 2.5rem;
-            color: var(--secondary);
-            margin-bottom: 15px;
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: white;
+            font-size: 14px;
         }
-        
-        .form-section {
-            background-color: white;
-            border-radius: 10px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            margin-bottom: 25px;
+
+        th, td {
+            padding: 16px 18px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
         }
-        
-        .data-table {
-            background-color: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-        }
-        
-        .stats-number {
-            font-size: 2rem;
+
+        th {
+            background-color: #f8fafc;
+            color: var(--dark);
             font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background-color: #f8fafc;
+        }
+
+        .alert {
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            font-weight: 500;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+
+        .alert-success {
+            background-color: #f0fdf4;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+
+        .alert-error {
+            background-color: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .user-info {
+            background: white;
+            color: var(--dark);
+            padding: 20px 26px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border);
+        }
+
+        .logout-btn {
+            background: transparent;
+            border: 1px solid var(--border);
             color: var(--secondary);
+            padding: 10px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
         }
-        
-        .btn-primary {
-            background-color: var(--secondary);
-            border-color: var(--secondary);
-        }
-        
-        .btn-primary:hover {
-            background-color: #2980b9;
-            border-color: #2980b9;
-        }
-        
-        .action-buttons .btn {
-            margin-right: 5px;
+
+        .logout-btn:hover {
+            background: #f8fafc;
+            color: var(--dark);
         }
 
         .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--gray);
+            font-size: 15px;
+        }
+
+        .specialty-badge {
             display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #3498db;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            margin: 2px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 28px 22px;
+            border-radius: 12px;
+            color: white;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .stat-card h3 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .stat-card p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .update-item {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .update-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: var(--dark);
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* New enhancements */
+        .form-header {
+            margin-bottom: 28px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .form-header h2 {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .required-field::after {
+            content: "*";
+            color: var(--danger);
+            margin-left: 4px;
+        }
+
+        .input-hint {
+            font-size: 13px;
+            color: var(--gray);
+            margin-top: 8px;
+        }
+
+        .table-actions {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .search-box {
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            width: 280px;
+        }
+
+        .filter-select {
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 28px;
+            gap: 10px;
+        }
+
+        .pagination-btn {
+            padding: 10px 16px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: white;
+            color: var(--dark);
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .pagination-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .pagination-btn:hover:not(.active) {
+            background: #f8fafc;
+        }
+
+        .icon-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .icon-btn i {
+            font-size: 16px;
+        }
+
+        /* Professional enhancements */
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .form-section {
+            background: #f8fafc;
+            padding: 24px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+
+        .form-section-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--dark);
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--border);
+            margin: 28px 0;
+        }
+
+        /* New styles for connection status */
+        .connection-status {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .connection-status.online {
+            background-color: #f0fdf4;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+
+        .connection-status.offline {
+            background-color: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .connection-status.slow {
+            background-color: #fffbeb;
+            color: #92400e;
+            border: 1px solid #fed7aa;
+        }
+
+        .progress-bar {
+            height: 4px;
+            width: 100%;
+            background-color: #e5e7eb;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background-color: var(--primary);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--primary);
             border-radius: 50%;
             animation: spin 1s linear infinite;
+        }
+
+        .loading-message {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--dark);
         }
 
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+            
+            .header {
+                padding: 22px;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .nav-menu {
+                flex-direction: column;
+            }
+            
+            .nav-item {
+                min-width: auto;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .card {
+                padding: 22px;
+            }
+            
+            .user-info {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+            
+            .stat-card {
+                margin-bottom: 16px;
+            }
+            
+            .table-actions {
+                flex-direction: column;
+            }
+            
+            .search-box {
+                width: 100%;
+            }
+
+            .connection-status {
+                bottom: 10px;
+                right: 10px;
+                left: 10px;
+            }
+        }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Login Screen -->
-    <div id="login-screen" class="login-container">
-        <div class="login-card">
-            <div class="app-logo">
-                <i class="fas fa-clinic-medical"></i>
-                <h1>National Surveillance System</h1>
-            </div>
-            <form id="login-form">
-                <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
-                    <input type="text" class="form-control" id="username" required>
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" required>
-                </div>
-                <button type="submit" class="btn btn-primary w-100" id="login-btn">
-                    <span id="login-text">Login</span>
-                    <span id="login-loading" class="loading d-none"></span>
-                </button>
-            </form>
-            <div id="login-message" class="alert alert-danger mt-3 d-none"></div>
+    <!-- Connection Status Indicator -->
+    <div id="connection-status" class="connection-status online hidden">
+        <i class="fas fa-wifi"></i>
+        <span id="connection-status-text">Connection stable</span>
+    </div>
+
+    <!-- Global Loading Overlay -->
+    <div id="global-loading" class="loading-overlay hidden">
+        <div class="loading-spinner"></div>
+        <div class="loading-message" id="global-loading-message">Processing your request...</div>
+        <div class="progress-bar">
+            <div class="progress-bar-fill" id="progress-bar-fill"></div>
         </div>
     </div>
 
-    <!-- Main Application -->
-    <div id="app-container" class="d-none">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">
-                    <i class="fas fa-clinic-medical me-2"></i>
-                    National Surveillance System
-                </a>
-                <div class="d-flex align-items-center">
-                    <span class="text-light me-3" id="user-info">Welcome, User</span>
-                    <button class="btn btn-outline-light btn-sm" id="logout-btn">
-                        <i class="fas fa-sign-out-alt"></i> Logout
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>National Surveillance System</h1>
+            <p>Specialist Grade Medical Officers - Ministry of Health Sri Lanka</p>
+        </div>
+
+        <!-- Login Section -->
+        <div id="login-section" class="section active">
+            <div class="login-card card">
+                <h2 style="text-align: center; margin-bottom: 30px; color: var(--dark);">System Login</h2>
+                <div id="login-alert" class="alert alert-error hidden">
+                    <i class="fas fa-exclamation-circle" style="margin-right: 10px;"></i>
+                    <span id="login-alert-text"></span>
+                </div>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="username" class="required-field">Username</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="required-field">Password</label>
+                        <input type="password" id="password" name="password" required>
+                        <div class="input-hint">Use your ministry-issued credentials</div>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">
+                        <i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i> Login
                     </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Main Application -->
+        <div id="main-app" class="section">
+            <!-- User Info Bar -->
+            <div class="user-info">
+                <div>
+                    <span>Welcome, <strong id="user-name">User</strong></span>
+                    <span id="user-role" class="specialty-badge"></span>
+                </div>
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt" style="margin-right: 8px;"></i> Logout
+                </button>
+            </div>
+
+            <!-- Navigation Menu -->
+            <div class="nav-menu">
+                <button class="nav-item active" onclick="showSection('dashboard')">
+                    <i class="fas fa-chart-line" style="margin-right: 8px;"></i> Dashboard
+                </button>
+                <button class="nav-item" onclick="showSection('form1')">
+                    <i class="fas fa-user-md" style="margin-right: 8px;"></i> Specialist Info
+                </button>
+                <button class="nav-item" onclick="showSection('form2')">
+                    <i class="fas fa-hospital" style="margin-right: 8px;"></i> General Data
+                </button>
+                <button class="nav-item" onclick="showSection('form3')">
+                    <i class="fas fa-exchange-alt" style="margin-right: 8px;"></i> Training & Transfers
+                </button>
+                <button class="nav-item" onclick="showSection('monthly-updates')">
+                    <i class="fas fa-calendar-alt" style="margin-right: 8px;"></i> Monthly Updates
+                </button>
+                <button class="nav-item" onclick="showSection('reports')">
+                    <i class="fas fa-file-alt" style="margin-right: 8px;"></i> Reports
+                </button>
+                <button class="nav-item" onclick="showSection('feedback')">
+                    <i class="fas fa-comments" style="margin-right: 8px;"></i> Feedback
+                </button>
+            </div>
+
+            <!-- Dashboard Section -->
+            <div id="dashboard" class="section active">
+                <div class="card">
+                    <div class="section-title">System Dashboard</div>
+                    <div class="stats-grid">
+                        <div class="stat-card" style="background: linear-gradient(135deg, var(--success), #059669);">
+                            <h3 id="total-specialists">0</h3>
+                            <p>Total Specialists</p>
+                        </div>
+                        <div class="stat-card" style="background: linear-gradient(135deg, var(--warning), #d97706);">
+                            <h3 id="active-posts">0</h3>
+                            <p>Active Posts</p>
+                        </div>
+                        <div class="stat-card" style="background: linear-gradient(135deg, var(--danger), #dc2626);">
+                            <h3 id="vacant-posts">0</h3>
+                            <p>Vacant Posts</p>
+                        </div>
+                    </div>
+                    <div id="recent-updates">
+                        <h3 style="margin-bottom: 20px;">Recent Updates</h3>
+                        <div class="update-item">
+                            <p><strong>Dr. Silva</strong> - Status updated to "Available" at Teaching Hospital Colombo</p>
+                            <small style="color: var(--gray);">2 hours ago</small>
+                        </div>
+                        <div class="update-item">
+                            <p><strong>Dr. Fernando</strong> - New transfer to Hospital A approved</p>
+                            <small style="color: var(--gray);">1 day ago</small>
+                        </div>
+                        <div class="update-item">
+                            <p><strong>Dr. Perera</strong> - Completed training program in Radiology</p>
+                            <small style="color: var(--gray);">3 days ago</small>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </nav>
 
-        <div class="container-fluid">
-            <div class="row">
-                <!-- Sidebar -->
-                <div class="col-md-2 sidebar">
-                    <div class="d-flex flex-column p-3">
-                        <ul class="nav nav-pills flex-column mb-auto">
-                            <li class="nav-item">
-                                <a href="#dashboard" class="nav-link active" data-section="dashboard">
-                                    <i class="fas fa-tachometer-alt"></i> Dashboard
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#specialists" class="nav-link" data-section="specialists">
-                                    <i class="fas fa-user-md"></i> Specialists
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#general-data" class="nav-link" data-section="general-data">
-                                    <i class="fas fa-hospital"></i> General Data
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#training" class="nav-link" data-section="training">
-                                    <i class="fas fa-graduation-cap"></i> Training
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#monthly-updates" class="nav-link" data-section="monthly-updates">
-                                    <i class="fas fa-calendar-alt"></i> Monthly Updates
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#feedback" class="nav-link" data-section="feedback">
-                                    <i class="fas fa-comments"></i> Feedback
-                                </a>
-                            </li>
-                        </ul>
+            <!-- Form 1: Specialist Information -->
+            <div id="form1" class="section">
+                <div class="card">
+                    <div class="form-header">
+                        <h2><i class="fas fa-user-md" style="margin-right: 10px;"></i>Form 1 - Specialist Information Format</h2>
+                    </div>
+                    <div id="form1-alert" class="alert alert-success hidden">
+                        <i class="fas fa-check-circle" style="margin-right: 10px;"></i>
+                        <span id="form1-alert-text"></span>
+                    </div>
+                    <form id="specialist-form">
+                        <div class="form-section">
+                            <div class="form-section-title">Personal Information</div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="spec-name" class="required-field">Full Name</label>
+                                    <input type="text" id="spec-name" name="name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="spec-nic" class="required-field">NIC Number</label>
+                                    <input type="text" id="spec-nic" name="nic" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="spec-contact" class="required-field">Contact Number</label>
+                                    <input type="tel" id="spec-contact" name="contact" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="spec-email">Email</label>
+                                    <input type="email" id="spec-email" name="email">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <div class="form-section-title">Professional Information</div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="spec-specialty" class="required-field">Specialty</label>
+                                    <select id="spec-specialty" name="specialty" required>
+                                        <option value="">Select Specialty</option>
+                                        <option value="Cardiology">Cardiology</option>
+                                        <option value="Neurology">Neurology</option>
+                                        <option value="Orthopedic Surgery">Orthopedic Surgery</option>
+                                        <option value="Pediatrics">Pediatrics</option>
+                                        <option value="Internal Medicine">Internal Medicine</option>
+                                        <option value="Surgery">Surgery</option>
+                                        <option value="Obstetrics & Gynecology">Obstetrics & Gynecology</option>
+                                        <option value="Psychiatry">Psychiatry</option>
+                                        <option value="Radiology">Radiology</option>
+                                        <option value="Anesthesiology">Anesthesiology</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="spec-grade" class="required-field">Current Grade</label>
+                                    <select id="spec-grade" name="grade" required>
+                                        <option value="">Select Grade</option>
+                                        <option value="Consultant">Consultant</option>
+                                        <option value="Senior Registrar">Senior Registrar</option>
+                                        <option value="Registrar">Registrar</option>
+                                        <option value="Senior House Officer">Senior House Officer</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="spec-appointment-date" class="required-field">Appointment Date</label>
+                                    <input type="date" id="spec-appointment-date" name="appointmentDate" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="spec-transfer-order">Transfer Order No</label>
+                                    <input type="text" id="spec-transfer-order" name="transferOrder">
+                                    <div class="input-hint">If applicable</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="spec-current-hospital" class="required-field">Current Hospital/Institution</label>
+                                <select id="spec-current-hospital" name="currentHospital" required>
+                                    <option value="">Select Hospital</option>
+                                    <option value="Hospital A">Hospital A</option>
+                                    <option value="Hospital B">Hospital B</option>
+                                    <option value="Hospital C">Hospital C</option>
+                                    <option value="Teaching Hospital Colombo">Teaching Hospital Colombo</option>
+                                    <option value="Teaching Hospital Kandy">Teaching Hospital Kandy</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn">
+                            <i class="fas fa-paper-plane" style="margin-right: 8px;"></i> Submit Specialist Information
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Form 2: General Data Sheet -->
+            <div id="form2" class="section">
+                <div class="card">
+                    <div class="form-header">
+                        <h2><i class="fas fa-hospital" style="margin-right: 10px;"></i>Form 2 - Standard General Data Sheet</h2>
+                    </div>
+                    <div id="form2-alert" class="alert alert-success hidden">
+                        <i class="fas fa-check-circle" style="margin-right: 10px;"></i>
+                        <span id="form2-alert-text"></span>
+                    </div>
+                    <form id="general-data-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="institution-name" class="required-field">Institution Name</label>
+                                <input type="text" id="institution-name" name="institutionName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="institution-type" class="required-field">Institution Type</label>
+                                <select id="institution-type" name="institutionType" required>
+                                    <option value="">Select Type</option>
+                                    <option value="Teaching Hospital">Teaching Hospital</option>
+                                    <option value="District General Hospital">District General Hospital</option>
+                                    <option value="Base Hospital">Base Hospital</option>
+                                    <option value="Specialized Hospital">Specialized Hospital</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="bed-strength" class="required-field">Bed Strength</label>
+                                <input type="number" id="bed-strength" name="bedStrength" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="total-consultants" class="required-field">Total Consultant Posts</label>
+                                <input type="number" id="total-consultants" name="totalConsultants" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="filled-posts" class="required-field">Filled Posts</label>
+                                <input type="number" id="filled-posts" name="filledPosts" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="vacant-posts-form2" class="required-field">Vacant Posts</label>
+                                <input type="number" id="vacant-posts-form2" name="vacantPosts" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="specialty-breakdown">Specialty Breakdown</label>
+                            <textarea id="specialty-breakdown" name="specialtyBreakdown" rows="4" placeholder="List specialties and their post distribution..."></textarea>
+                            <div class="input-hint">Example: Cardiology - 3 posts, Neurology - 2 posts</div>
+                        </div>
+                        <button type="submit" class="btn">
+                            <i class="fas fa-paper-plane" style="margin-right: 8px;"></i> Submit General Data
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Form 3: Training & Transfers -->
+            <div id="form3" class="section">
+                <div class="card">
+                    <div class="form-header">
+                        <h2><i class="fas fa-exchange-alt" style="margin-right: 10px;"></i>Form 3 - Training & Transfers</h2>
+                    </div>
+                    <div id="form3-alert" class="alert alert-success hidden">
+                        <i class="fas fa-check-circle" style="margin-right: 10px;"></i>
+                        <span id="form3-alert-text"></span>
+                    </div>
+                    <form id="training-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="officer-name-training" class="required-field">Officer Name</label>
+                                <input type="text" id="officer-name-training" name="officerName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="training-type" class="required-field">Training/Transfer Type</label>
+                                <select id="training-type" name="trainingType" required>
+                                    <option value="">Select Type</option>
+                                    <option value="Annual Training">Annual Training</option>
+                                    <option value="Temporary Transfer">Temporary Transfer</option>
+                                    <option value="Foreign Training">Foreign Training</option>
+                                    <option value="Permanent Transfer">Permanent Transfer</option>
+                                    <option value="Study Leave">Study Leave</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="from-institution" class="required-field">From Institution</label>
+                                <select id="from-institution" name="fromInstitution" required>
+                                    <option value="">Select Institution</option>
+                                    <option value="Hospital A">Hospital A</option>
+                                    <option value="Hospital B">Hospital B</option>
+                                    <option value="Hospital C">Hospital C</option>
+                                    <option value="Teaching Hospital Colombo">Teaching Hospital Colombo</option>
+                                    <option value="Teaching Hospital Kandy">Teaching Hospital Kandy</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="to-institution" class="required-field">To Institution</label>
+                                <input type="text" id="to-institution" name="toInstitution" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="start-date" class="required-field">Start Date</label>
+                                <input type="date" id="start-date" name="startDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="end-date">Expected End Date</label>
+                                <input type="date" id="end-date" name="endDate">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="training-purpose">Purpose/Description</label>
+                            <textarea id="training-purpose" name="purpose" rows="3" placeholder="Describe the purpose of training or transfer..."></textarea>
+                        </div>
+                        <button type="submit" class="btn">
+                            <i class="fas fa-paper-plane" style="margin-right: 8px;"></i> Submit Training/Transfer Record
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Monthly Updates Section -->
+            <div id="monthly-updates" class="section">
+                <div class="card">
+                    <div class="form-header">
+                        <h2><i class="fas fa-calendar-alt" style="margin-right: 10px;"></i>Monthly Status Updates</h2>
+                    </div>
+                    <div id="monthly-alert" class="alert alert-success hidden">
+                        <i class="fas fa-check-circle" style="margin-right: 10px;"></i>
+                        <span id="monthly-alert-text"></span>
+                    </div>
+                    <form id="monthly-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="update-officer" class="required-field">Select Officer</label>
+                                <select id="update-officer" name="officerId" required>
+                                    <option value="">Select Officer</option>
+                                    <!-- Options populated dynamically -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="update-month" class="required-field">Month</label>
+                                <input type="month" id="update-month" name="month" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="status-update" class="required-field">Current Status</label>
+                                <select id="status-update" name="status" required>
+                                    <option value="">Select Status</option>
+                                    <option value="Available">🟢 Available</option>
+                                    <option value="Transferred">🟡 Transferred</option>
+                                    <option value="Temporary Released">🔴 Temporary Released</option>
+                                    <option value="On Leave">🔵 On Leave</option>
+                                    <option value="Training">🟣 On Training</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="current-location">Current Location</label>
+                                <input type="text" id="current-location" name="currentLocation">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-remarks">Remarks</label>
+                            <textarea id="update-remarks" name="remarks" rows="3" placeholder="Additional notes or comments..."></textarea>
+                        </div>
+                        <button type="submit" class="btn">
+                            <i class="fas fa-sync-alt" style="margin-right: 8px;"></i> Update Status
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Reports Section -->
+            <div id="reports" class="section">
+                <div class="card">
+                    <div class="form-header">
+                        <h2><i class="fas fa-file-alt" style="margin-right: 10px;"></i>Reports & Analytics</h2>
+                    </div>
+                    <div class="table-actions">
+                        <input type="text" class="search-box" placeholder="Search reports...">
+                        <select class="filter-select">
+                            <option>All Specialties</option>
+                            <option>Cardiology</option>
+                            <option>Neurology</option>
+                            <option>Pediatrics</option>
+                        </select>
+                        <select class="filter-select">
+                            <option>All Hospitals</option>
+                            <option>Hospital A</option>
+                            <option>Hospital B</option>
+                            <option>Hospital C</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <button class="btn" onclick="generateReport('specialists')">
+                            <i class="fas fa-user-md" style="margin-right: 8px;"></i> Specialist Summary
+                        </button>
+                        <button class="btn" onclick="generateReport('vacancies')">
+                            <i class="fas fa-bed" style="margin-right: 8px;"></i> Vacancy Report
+                        </button>
+                        <button class="btn" onclick="generateReport('transfers')">
+                            <i class="fas fa-exchange-alt" style="margin-right: 8px;"></i> Transfer History
+                        </button>
+                    </div>
+                    <div id="report-content">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Specialty</th>
+                                        <th>Institution</th>
+                                        <th>Status</th>
+                                        <th>Last Updated</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="report-table-body">
+                                    <tr>
+                                        <td colspan="5" class="loading">Select a report type to view data</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="pagination">
+                            <button class="pagination-btn">&laquo;</button>
+                            <button class="pagination-btn active">1</button>
+                            <button class="pagination-btn">2</button>
+                            <button class="pagination-btn">3</button>
+                            <button class="pagination-btn">&raquo;</button>
+                        </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Main Content -->
-                <div class="col-md-10 main-content">
-                    <!-- Dashboard Section -->
-                    <div id="dashboard-section" class="content-section">
-                        <h2 class="mb-4">Dashboard</h2>
-                        <div class="row mb-4">
-                            <div class="col-md-3 mb-3">
-                                <div class="card dashboard-card">
-                                    <div class="card-body text-center">
-                                        <div class="card-icon">
-                                            <i class="fas fa-user-md"></i>
-                                        </div>
-                                        <h5 class="card-title">Specialists</h5>
-                                        <p class="stats-number" id="specialists-count">0</p>
-                                        <p class="text-muted">Registered medical specialists</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <div class="card dashboard-card">
-                                    <div class="card-body text-center">
-                                        <div class="card-icon">
-                                            <i class="fas fa-hospital"></i>
-                                        </div>
-                                        <h5 class="card-title">Hospitals</h5>
-                                        <p class="stats-number" id="hospitals-count">0</p>
-                                        <p class="text-muted">Participating institutions</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <div class="card dashboard-card">
-                                    <div class="card-body text-center">
-                                        <div class="card-icon">
-                                            <i class="fas fa-graduation-cap"></i>
-                                        </div>
-                                        <h5 class="card-title">Training</h5>
-                                        <p class="stats-number" id="training-count">0</p>
-                                        <p class="text-muted">Ongoing training programs</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <div class="card dashboard-card">
-                                    <div class="card-body text-center">
-                                        <div class="card-icon">
-                                            <i class="fas fa-comments"></i>
-                                        </div>
-                                        <h5 class="card-title">Feedback</h5>
-                                        <p class="stats-number" id="feedback-count">0</p>
-                                        <p class="text-muted">Pending feedback items</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6 mb-4">
-                                <div class="form-section">
-                                    <h4 class="mb-4">Recent Specialists</h4>
-                                    <div class="table-responsive">
-                                        <table class="table table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th>Name</th>
-                                                    <th>Specialty</th>
-                                                    <th>Hospital</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="recent-specialists">
-                                                <!-- Data loaded from backend -->
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-4">
-                                <div class="form-section">
-                                    <h4 class="mb-4">System Updates</h4>
-                                    <div class="list-group" id="system-updates">
-                                        <!-- Updates loaded from backend -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            <!-- Feedback Section -->
+            <div id="feedback" class="section">
+                <div class="card">
+                    <div class="form-header">
+                        <h2><i class="fas fa-comments" style="margin-right: 10px;"></i>Feedback & Support</h2>
                     </div>
-
-                    <!-- Specialists Section -->
-                    <div id="specialists-section" class="content-section d-none">
-                        <h2 class="mb-4">Specialist Management</h2>
-                        
-                        <div class="form-section mb-4">
-                            <h4 class="mb-4">Add New Specialist</h4>
-                            <form id="specialist-form">
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="fullName" class="form-label">Full Name</label>
-                                        <input type="text" class="form-control" id="fullName" required>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="nic" class="form-label">NIC Number</label>
-                                        <input type="text" class="form-control" id="nic" required>
-                                    </div>
-                                </div>
-                                
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="specialty" class="form-label">Specialty</label>
-                                        <select class="form-select" id="specialty" required>
-                                            <option value="">Select Specialty</option>
-                                            <option value="Cardiology">Cardiology</option>
-                                            <option value="Neurology">Neurology</option>
-                                            <option value="Pediatrics">Pediatrics</option>
-                                            <option value="Surgery">Surgery</option>
-                                            <option value="Oncology">Oncology</option>
-                                            <option value="Psychiatry">Psychiatry</option>
-                                            <option value="Dermatology">Dermatology</option>
-                                            <option value="Orthopedics">Orthopedics</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="grade" class="form-label">Grade</label>
-                                        <select class="form-select" id="grade" required>
-                                            <option value="">Select Grade</option>
-                                            <option value="Consultant">Consultant</option>
-                                            <option value="Senior Registrar">Senior Registrar</option>
-                                            <option value="Registrar">Registrar</option>
-                                            <option value="Senior House Officer">Senior House Officer</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="appointmentDate" class="form-label">Appointment Date</label>
-                                        <input type="date" class="form-control" id="appointmentDate" required>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="transferOrderNo" class="form-label">Transfer Order Number</label>
-                                        <input type="text" class="form-control" id="transferOrderNo">
-                                    </div>
-                                </div>
-                                
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="contact" class="form-label">Contact Number</label>
-                                        <input type="tel" class="form-control" id="contact" required>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="email" class="form-label">Email Address</label>
-                                        <input type="email" class="form-control" id="email">
-                                    </div>
-                                </div>
-                                
-                                <div class="mb-3">
-                                    <label for="currentHospital" class="form-label">Current Hospital</label>
-                                    <input type="text" class="form-control" id="currentHospital" required>
-                                </div>
-                                
-                                <button type="submit" class="btn btn-primary" id="add-specialist-btn">
-                                    <span id="add-text">Add Specialist</span>
-                                    <span id="add-loading" class="loading d-none"></span>
-                                </button>
-                            </form>
-                        </div>
-                        
-                        <div class="form-section">
-                            <h4 class="mb-4">Specialist Records</h4>
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <div class="d-flex">
-                                    <input type="text" class="form-control me-2" id="search-specialists" placeholder="Search specialists..." style="width: 300px;">
-                                    <button class="btn btn-outline-secondary" id="search-btn">Search</button>
-                                </div>
-                                <div>
-                                    <button class="btn btn-outline-primary" id="export-specialists">
-                                        <i class="fas fa-download"></i> Export
-                                    </button>
-                                    <button class="btn btn-outline-success" id="refresh-specialists">
-                                        <i class="fas fa-sync-alt"></i> Refresh
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table table-striped table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Specialty</th>
-                                            <th>Grade</th>
-                                            <th>Hospital</th>
-                                            <th>Contact</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="specialists-table">
-                                        <!-- Data loaded from backend -->
-                                    </tbody>
-                                </table>
-                            </div>
-                            <nav aria-label="Page navigation" id="pagination-container">
-                                <!-- Pagination loaded dynamically -->
-                            </nav>
-                        </div>
+                    <div id="feedback-alert" class="alert alert-success hidden">
+                        <i class="fas fa-check-circle" style="margin-right: 10px;"></i>
+                        <span id="feedback-alert-text"></span>
                     </div>
-
-                    <!-- General Data Section -->
-                    <div id="general-data-section" class="content-section d-none">
-                        <h2 class="mb-4">General Institution Data</h2>
-                        
-                        <div class="form-section mb-4">
-                            <h4 class="mb-4">Add Hospital/Institution</h4>
-                            <form id="hospital-form">
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="hospitalName" class="form-label">Hospital Name</label>
-                                        <input type="text" class="form-control" id="hospitalName" required>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="hospitalType" class="form-label">Type</label>
-                                        <select class="form-select" id="hospitalType" required>
-                                            <option value="">Select Type</option>
-                                            <option value="Teaching Hospital">Teaching Hospital</option>
-                                            <option value="General Hospital">General Hospital</option>
-                                            <option value="Specialized Hospital">Specialized Hospital</option>
-                                            <option value="Private Hospital">Private Hospital</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="province" class="form-label">Province</label>
-                                        <select class="form-select" id="province" required>
-                                            <option value="">Select Province</option>
-                                            <option value="Western">Western</option>
-                                            <option value="Central">Central</option>
-                                            <option value="Southern">Southern</option>
-                                            <option value="Eastern">Eastern</option>
-                                            <option value="Northern">Northern</option>
-                                            <option value="North Western">North Western</option>
-                                            <option value="North Central">North Central</option>
-                                            <option value="Uva">Uva</option>
-                                            <option value="Sabaragamuwa">Sabaragamuwa</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="district" class="form-label">District</label>
-                                        <input type="text" class="form-control" id="district" required>
-                                    </div>
-                                </div>
-                                
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="bedCapacity" class="form-label">Bed Capacity</label>
-                                        <input type="number" class="form-control" id="bedCapacity" required>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="hospitalPhone" class="form-label">Phone Number</label>
-                                        <input type="tel" class="form-control" id="hospitalPhone">
-                                    </div>
-                                </div>
-                                
-                                <div class="mb-3">
-                                    <label for="hospitalAddress" class="form-label">Address</label>
-                                    <textarea class="form-control" id="hospitalAddress" rows="3" required></textarea>
-                                </div>
-                                
-                                <button type="submit" class="btn btn-primary">Add Hospital</button>
-                            </form>
-                        </div>
-
-                        <div class="form-section">
-                            <h4 class="mb-4">Hospital Records</h4>
-                            <div class="table-responsive">
-                                <table class="table table-striped table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Type</th>
-                                            <th>Province</th>
-                                            <th>Bed Capacity</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="hospitals-table">
-                                        <!-- Data loaded from backend -->
-                                    </tbody>
-                                </table>
+                    <form id="feedback-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="feedback-type" class="required-field">Feedback Type</label>
+                                <select id="feedback-type" name="feedbackType" required>
+                                    <option value="">Select Type</option>
+                                    <option value="Bug Report">Bug Report</option>
+                                    <option value="Feature Request">Feature Request</option>
+                                    <option value="General Feedback">General Feedback</option>
+                                    <option value="Support Request">Support Request</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="feedback-priority" class="required-field">Priority</label>
+                                <select id="feedback-priority" name="priority" required>
+                                    <option value="">Select Priority</option>
+                                    <option value="Low">Low</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="High">High</option>
+                                    <option value="Critical">Critical</option>
+                                </select>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Training Section -->
-                    <div id="training-section" class="content-section d-none">
-                        <h2 class="mb-4">Training Programs</h2>
-                        
-                        <div class="form-section mb-4">
-                            <h4 class="mb-4">Add Training Program</h4>
-                            <form id="training-form">
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="trainingTitle" class="form-label">Training Title</label>
-                                        <input type="text" class="form-control" id="trainingTitle" required>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="trainingType" class="form-label">Training Type</label>
-                                        <select class="form-select" id="trainingType" required>
-                                            <option value="">Select Type</option>
-                                            <option value="Medical Procedures">Medical Procedures</option>
-                                            <option value="Emergency Response">Emergency Response</option>
-                                            <option value="Technology Training">Technology Training</option>
-                                            <option value="Surveillance Systems">Surveillance Systems</option>
-                                            <option value="Data Management">Data Management</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="startDate" class="form-label">Start Date</label>
-                                        <input type="date" class="form-control" id="startDate" required>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="endDate" class="form-label">End Date</label>
-                                        <input type="date" class="form-control" id="endDate" required>
-                                    </div>
-                                </div>
-                                
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="instructor" class="form-label">Instructor</label>
-                                        <input type="text" class="form-control" id="instructor" required>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="maxParticipants" class="form-label">Max Participants</label>
-                                        <input type="number" class="form-control" id="maxParticipants" required>
-                                    </div>
-                                </div>
-                                
-                                <div class="mb-3">
-                                    <label for="trainingDescription" class="form-label">Description</label>
-                                    <textarea class="form-control" id="trainingDescription" rows="3" required></textarea>
-                                </div>
-                                
-                                <button type="submit" class="btn btn-primary">Add Training Program</button>
-                            </form>
+                        <div class="form-group">
+                            <label for="feedback-subject" class="required-field">Subject</label>
+                            <input type="text" id="feedback-subject" name="subject" required>
                         </div>
-
-                        <div class="form-section">
-                            <h4 class="mb-4">Training Programs</h4>
-                            <div class="table-responsive">
-                                <table class="table table-striped table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Title</th>
-                                            <th>Type</th>
-                                            <th>Start Date</th>
-                                            <th>End Date</th>
-                                            <th>Instructor</th>
-                                            <th>Participants</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="training-table">
-                                        <!-- Data loaded from backend -->
-                                    </tbody>
-                                </table>
-                            </div>
+                        <div class="form-group">
+                            <label for="feedback-message" class="required-field">Message</label>
+                            <textarea id="feedback-message" name="message" rows="6" required placeholder="Please describe your feedback or issue in detail..."></textarea>
                         </div>
-                    </div>
-
-                    <!-- Monthly Updates Section -->
-                    <div id="monthly-updates-section" class="content-section d-none">
-                        <h2 class="mb-4">Monthly Updates</h2>
-                        
-                        <div class="form-section mb-4">
-                            <h4 class="mb-4">Submit Monthly Report</h4>
-                            <form id="monthly-form">
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="reportMonth" class="form-label">Report Month</label>
-                                        <input type="month" class="form-control" id="reportMonth" required>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="reportingHospital" class="form-label">Reporting Hospital</label>
-                                        <input type="text" class="form-control" id="reportingHospital" required>
-                                    </div>
-                                </div>
-                                
-                                <div class="row">
-                                    <div class="col-md-4 mb-3">
-                                        <label for="patientCount" class="form-label">Total Patients</label>
-                                        <input type="number" class="form-control" id="patientCount" required>
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <label for="emergencyCount" class="form-label">Emergency Cases</label>
-                                        <input type="number" class="form-control" id="emergencyCount" required>
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <label for="specialistConsults" class="form-label">Specialist Consultations</label>
-                                        <input type="number" class="form-control" id="specialistConsults" required>
-                                    </div>
-                                </div>
-                                
-                                <div class="mb-3">
-                                    <label for="keyIssues" class="form-label">Key Issues/Challenges</label>
-                                    <textarea class="form-control" id="keyIssues" rows="4"></textarea>
-                                </div>
-                                
-                                <div class="mb-3">
-                                    <label for="improvements" class="form-label">Improvements/Achievements</label>
-                                    <textarea class="form-control" id="improvements" rows="4"></textarea>
-                                </div>
-                                
-                                <button type="submit" class="btn btn-primary">Submit Monthly Report</button>
-                            </form>
-                        </div>
-
-                        <div class="form-section">
-                            <h4 class="mb-4">Monthly Reports</h4>
-                            <div class="table-responsive">
-                                <table class="table table-striped table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Month</th>
-                                            <th>Hospital</th>
-                                            <th>Total Patients</th>
-                                            <th>Emergency Cases</th>
-                                            <th>Submitted Date</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="monthly-reports-table">
-                                        <!-- Data loaded from backend -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Feedback Section -->
-                    <div id="feedback-section" class="content-section d-none">
-                        <h2 class="mb-4">Feedback System</h2>
-                        
-                        <div class="form-section mb-4">
-                            <h4 class="mb-4">Submit Feedback</h4>
-                            <form id="feedback-form">
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="feedbackType" class="form-label">Feedback Type</label>
-                                        <select class="form-select" id="feedbackType" required>
-                                            <option value="">Select Type</option>
-                                            <option value="Bug Report">Bug Report</option>
-                                            <option value="Feature Request">Feature Request</option>
-                                            <option value="System Improvement">System Improvement</option>
-                                            <option value="Training Feedback">Training Feedback</option>
-                                            <option value="General Feedback">General Feedback</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="priority" class="form-label">Priority</label>
-                                        <select class="form-select" id="priority" required>
-                                            <option value="">Select Priority</option>
-                                            <option value="Low">Low</option>
-                                            <option value="Medium">Medium</option>
-                                            <option value="High">High</option>
-                                            <option value="Critical">Critical</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="submitterName" class="form-label">Your Name</label>
-                                        <input type="text" class="form-control" id="submitterName" required>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="submitterEmail" class="form-label">Your Email</label>
-                                        <input type="email" class="form-control" id="submitterEmail" required>
-                                    </div>
-                                </div>
-                                
-                                <div class="mb-3">
-                                    <label for="feedbackTitle" class="form-label">Title</label>
-                                    <input type="text" class="form-control" id="feedbackTitle" required>
-                                </div>
-                                
-                                <div class="mb-3">
-                                    <label for="feedbackDescription" class="form-label">Description</label>
-                                    <textarea class="form-control" id="feedbackDescription" rows="5" required></textarea>
-                                </div>
-                                
-                                <button type="submit" class="btn btn-primary">Submit Feedback</button>
-                            </form>
-                        </div>
-
-                        <div class="form-section">
-                            <h4 class="mb-4">Feedback History</h4>
-                            <div class="table-responsive">
-                                <table class="table table-striped table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Date</th>
-                                            <th>Type</th>
-                                            <th>Title</th>
-                                            <th>Priority</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="feedback-table">
-                                        <!-- Data loaded from backend -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+                        <button type="submit" class="btn">
+                            <i class="fas fa-paper-plane" style="margin-right: 8px;"></i> Submit Feedback
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
     <script>
-        // Configuration - Replace with your actual Google Apps Script URL
-        const GAS_URL = 'https://script.google.com/macros/s/AKfycbxaD3m_9_JQE-XuqQUy9lsPJtPV7L6_HXn1BGowxqqLT2k2prrT2t7qKjwcyOwKW3Uu/exec';
-        
-        // Global variables
-        let currentUser = null;
-        let currentPage = 1;
-        const itemsPerPage = 10;
+// Global variables
+let currentUser = null;
+let userRole = null;
+let appData = {
+    specialists: [],
+    institutions: [],
+    transfers: [],
+    monthlyUpdates: []
+};
 
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeApp();
+// Configuration - Your Google Apps Script Web App URL
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzJ6FjR_XnsJ5WtD6BSaHN_tLVQYyI4Zzn7l6KB90FxbpInfZ2pExQLGr5yF-397x0Xyw/exec';
+const REQUEST_TIMEOUT = 30000; // 30 seconds timeout
+
+// Initialize the application
+document.addEventListener('DOMContentLoaded', function() {
+    initializeApp();
+    setupAutoSave();
+    restoreFormData();
+    setupFormValidation();
+    monitorConnection();
+});
+
+function initializeApp() {
+    // Check if user is already logged in
+    const savedUser = sessionStorage.getItem('currentUser');
+    if (savedUser) {
+        try {
+            const userData = JSON.parse(savedUser);
+            currentUser = userData.username;
+            userRole = userData.role;
+            showMainApp();
+        } catch (e) {
+            console.log('Invalid saved user data');
+            sessionStorage.removeItem('currentUser');
+        }
+    }
+
+    // Bind event listeners
+    bindEventListeners();
+}
+
+function bindEventListeners() {
+    const loginForm = document.getElementById('login-form');
+    const specialistForm = document.getElementById('specialist-form');
+    const generalDataForm = document.getElementById('general-data-form');
+    const trainingForm = document.getElementById('training-form');
+    const monthlyForm = document.getElementById('monthly-form');
+    const feedbackForm = document.getElementById('feedback-form');
+
+    if (loginForm) {
+        loginForm.addEventListener('submit', handleLogin);
+    }
+    if (specialistForm) {
+        specialistForm.addEventListener('submit', handleSpecialistSubmit);
+    }
+    if (generalDataForm) {
+        generalDataForm.addEventListener('submit', handleGeneralDataSubmit);
+    }
+    if (trainingForm) {
+        trainingForm.addEventListener('submit', handleTrainingSubmit);
+    }
+    if (monthlyForm) {
+        monthlyForm.addEventListener('submit', handleMonthlyUpdate);
+    }
+    if (feedbackForm) {
+        feedbackForm.addEventListener('submit', handleFeedbackSubmit);
+    }
+}
+
+// API request function with timeout and connection monitoring
+async function makeApiRequest(data, isGet = false) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT);
+    
+    try {
+        let url = SCRIPT_URL;
+        let options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            signal: controller.signal
+        };
+
+        if (isGet) {
+            // For GET requests, append parameters to URL
+            const params = new URLSearchParams(data);
+            url += '?' + params.toString();
+            options.method = 'GET';
+            delete options.headers;
+            delete options.body;
+        } else {
+            // For POST requests, use URLSearchParams
+            const formData = new URLSearchParams();
+            Object.keys(data).forEach(key => {
+                if (typeof data[key] === 'object') {
+                    formData.append(key, JSON.stringify(data[key]));
+                } else {
+                    formData.append(key, data[key]);
+                }
+            });
+            
+            options.body = formData;
+        }
+
+        console.log('Making request to:', url);
+        console.log('Request data:', data);
+
+        updateConnectionStatus('slow', 'Connecting to server...');
+        updateProgressBar(30);
+
+        const response = await fetch(url, options);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        updateProgressBar(70);
+        const result = await response.text();
+        updateProgressBar(100);
+        
+        // Try to parse as JSON, fallback to treating as success message
+        try {
+            const jsonResult = JSON.parse(result);
+            updateConnectionStatus('online', 'Connection stable');
+            return jsonResult;
+        } catch (parseError) {
+            console.log('Response is not JSON, treating as success:', result);
+            updateConnectionStatus('online', 'Connection stable');
+            return { 
+                success: true, 
+                message: result || 'Operation completed successfully'
+            };
+        }
+        
+    } catch (error) {
+        console.error('API Request Error:', error);
+        
+        if (error.name === 'AbortError') {
+            updateConnectionStatus('offline', 'Request timeout - Server is slow to respond');
+            return {
+                success: false,
+                message: 'Request timeout. The server is taking too long to respond. Please try again.'
+            };
+        } else {
+            updateConnectionStatus('offline', 'Network error - Check your connection');
+            return {
+                success: false,
+                message: `Network error: ${error.message}. Please check your connection and try again.`
+            };
+        }
+    } finally {
+        clearTimeout(timeoutId);
+    }
+}
+
+// Connection monitoring and UI updates
+function monitorConnection() {
+    // Check online status
+    window.addEventListener('online', () => {
+        updateConnectionStatus('online', 'Connection restored');
+    });
+
+    window.addEventListener('offline', () => {
+        updateConnectionStatus('offline', 'No internet connection');
+    });
+}
+
+function updateConnectionStatus(status, message) {
+    const statusElement = document.getElementById('connection-status');
+    const statusTextElement = document.getElementById('connection-status-text');
+    
+    if (!statusElement || !statusTextElement) return;
+    
+    statusElement.classList.remove('hidden', 'online', 'offline', 'slow');
+    statusElement.classList.add(status);
+    statusTextElement.textContent = message;
+    
+    // Auto-hide success status after 5 seconds
+    if (status === 'online') {
+        setTimeout(() => {
+            statusElement.classList.add('hidden');
+        }, 5000);
+    } else {
+        statusElement.classList.remove('hidden');
+    }
+}
+
+function showGlobalLoading(message = 'Processing your request...') {
+    const loadingElement = document.getElementById('global-loading');
+    const messageElement = document.getElementById('global-loading-message');
+    
+    if (loadingElement && messageElement) {
+        messageElement.textContent = message;
+        loadingElement.classList.remove('hidden');
+        updateProgressBar(10);
+    }
+}
+
+function hideGlobalLoading() {
+    const loadingElement = document.getElementById('global-loading');
+    if (loadingElement) {
+        loadingElement.classList.add('hidden');
+        updateProgressBar(0);
+    }
+}
+
+function updateProgressBar(percent) {
+    const progressBar = document.getElementById('progress-bar-fill');
+    if (progressBar) {
+        progressBar.style.width = percent + '%';
+    }
+}
+
+// Authentication functions
+async function handleLogin(e) {
+    e.preventDefault();
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    if (!username || !password) {
+        showAlert('login-alert', 'Please enter both username and password', 'error');
+        return;
+    }
+
+    // Show loading
+    showGlobalLoading('Authenticating...');
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 8px;"></i> Authenticating...';
+    submitBtn.disabled = true;
+
+    try {
+        const result = await makeApiRequest({
+            action: 'login',
+            username: username,
+            password: password
         });
 
-        function initializeApp() {
-            // Initialize event listeners
-            setupEventListeners();
+        console.log('Login result:', result);
+
+        if (result.success) {
+            currentUser = username;
+            userRole = result.role || 'User';
             
-            // Load initial data
+            // Save session
+            sessionStorage.setItem('currentUser', JSON.stringify({
+                username: currentUser,
+                role: userRole
+            }));
+
+            showMainApp();
+            hideAlert('login-alert');
+        } else {
+            showAlert('login-alert', result.message || 'Invalid username or password', 'error');
+        }
+    } catch (error) {
+        console.error('Login error:', error);
+        showAlert('login-alert', 'Unexpected error during login. Please try again.', 'error');
+    } finally {
+        // Re-enable form
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+        hideGlobalLoading();
+    }
+}
+
+function showMainApp() {
+    document.getElementById('login-section').classList.remove('active');
+    document.getElementById('main-app').classList.add('active');
+    
+    // Update user info display
+    const userNameElement = document.getElementById('user-name');
+    const userRoleElement = document.getElementById('user-role');
+    
+    if (userNameElement) userNameElement.textContent = currentUser;
+    if (userRoleElement) userRoleElement.textContent = userRole;
+    
+    // Load initial data
+    loadDashboardData();
+    populateOfficerDropdown();
+}
+
+function logout() {
+    sessionStorage.removeItem('currentUser');
+    currentUser = null;
+    userRole = null;
+    
+    document.getElementById('main-app').classList.remove('active');
+    document.getElementById('login-section').classList.add('active');
+    
+    // Reset forms
+    const loginForm = document.getElementById('login-form');
+    if (loginForm) loginForm.reset();
+    
+    hideAllSections();
+    showSection('dashboard');
+    hideAllAlerts();
+    
+    // Clear saved form data
+    clearSavedFormData();
+}
+
+// Navigation functions
+function showSection(sectionId) {
+    hideAllSections();
+    
+    const targetSection = document.getElementById(sectionId);
+    if (targetSection) {
+        targetSection.classList.add('active');
+    }
+    
+    // Update navigation
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    
+    const navItems = document.querySelectorAll('.nav-item');
+    for (let item of navItems) {
+        const onclickAttr = item.getAttribute('onclick');
+        if (onclickAttr && onclickAttr.includes(sectionId)) {
+            item.classList.add('active');
+            break;
+        }
+    }
+    
+    // Load section-specific data
+    if (sectionId === 'reports') {
+        loadReportsData();
+    } else if (sectionId === 'monthly-updates') {
+        populateOfficerDropdown();
+    }
+}
+
+function hideAllSections() {
+    const sections = document.querySelectorAll('#main-app .section');
+    sections.forEach(section => {
+        section.classList.remove('active');
+    });
+}
+
+// Enhanced data loading functions with better error handling
+async function loadDashboardData() {
+    try {
+        // Show loading indicators
+        const elements = ['total-specialists', 'active-posts', 'vacant-posts'];
+        elements.forEach(id => {
+            const element = document.getElementById(id);
+            if (element) element.textContent = '...';
+        });
+
+        const result = await makeApiRequest({
+            action: 'read',
+            sheet: 'Specialists'
+        }, true);
+
+        console.log('Dashboard data result:', result);
+
+        if (result.success && result.data) {
+            const totalElement = document.getElementById('total-specialists');
+            const activeElement = document.getElementById('active-posts');
+            const vacantElement = document.getElementById('vacant-posts');
+            
+            if (totalElement) totalElement.textContent = result.data.length;
+            
+            const activePosts = result.data.filter(spec => 
+                spec.status !== 'Vacant' && spec.status !== 'Transferred'
+            ).length;
+            
+            if (activeElement) activeElement.textContent = activePosts;
+            if (vacantElement) vacantElement.textContent = result.data.length - activePosts;
+        } else {
+            // Set default values on error
+            const totalElement = document.getElementById('total-specialists');
+            const activeElement = document.getElementById('active-posts');
+            const vacantElement = document.getElementById('vacant-posts');
+            
+            if (totalElement) totalElement.textContent = '0';
+            if (activeElement) activeElement.textContent = '0';
+            if (vacantElement) vacantElement.textContent = '0';
+        }
+    } catch (error) {
+        console.error('Error loading dashboard data:', error);
+        // Set error state
+        const elements = ['total-specialists', 'active-posts', 'vacant-posts'];
+        elements.forEach(id => {
+            const element = document.getElementById(id);
+            if (element) element.textContent = '0';
+        });
+    }
+}
+
+async function populateOfficerDropdown() {
+    const dropdown = document.getElementById('update-officer');
+    if (!dropdown) {
+        console.error('Officer dropdown not found');
+        return;
+    }
+    
+    // Clear and add default option
+    dropdown.innerHTML = '<option value="">Loading officers...</option>';
+    
+    try {
+        const result = await makeApiRequest({
+            action: 'read',
+            sheet: 'Specialists'
+        }, true);
+
+        console.log('Officer dropdown data:', result);
+
+        dropdown.innerHTML = '<option value="">Select Officer...</option>';
+
+        if (result.success && result.data && Array.isArray(result.data)) {
+            let addedCount = 0;
+            result.data.forEach(officer => {
+                // Check if user has permission to see this officer
+                const canView = userRole === 'Admin' || 
+                               (officer.currentHospital && officer.currentHospital === userRole) ||
+                               (officer.hospital && officer.hospital === userRole);
+                
+                if (canView && officer.name) {
+                    const option = document.createElement('option');
+                    option.value = officer.id || officer.name;
+                    option.textContent = `${officer.name}${officer.specialty ? ' - ' + officer.specialty : ''}`;
+                    dropdown.appendChild(option);
+                    addedCount++;
+                }
+            });
+            
+            // If no options were added
+            if (addedCount === 0) {
+                const option = document.createElement('option');
+                option.value = '';
+                option.textContent = 'No officers available for your role';
+                option.disabled = true;
+                dropdown.appendChild(option);
+            }
+        } else {
+            const option = document.createElement('option');
+            option.value = '';
+            option.textContent = 'Error loading officers';
+            option.disabled = true;
+            dropdown.appendChild(option);
+        }
+    } catch (error) {
+        console.error('Error loading officers:', error);
+        dropdown.innerHTML = '<option value="">Select Officer...</option>';
+        const option = document.createElement('option');
+        option.value = '';
+        option.textContent = 'Connection error - Try refreshing';
+        option.disabled = true;
+        dropdown.appendChild(option);
+    }
+}
+
+// Enhanced form submission handlers
+async function handleSpecialistSubmit(e) {
+    e.preventDefault();
+    
+    if (!validateForm(e.target)) {
+        showAlert('form1-alert', 'Please fill in all required fields', 'error');
+        return;
+    }
+    
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    
+    try {
+        showGlobalLoading('Submitting specialist information...');
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 8px;"></i> Submitting...';
+        submitBtn.disabled = true;
+        
+        const formData = new FormData(e.target);
+        const data = {};
+        
+        // Convert FormData to regular object
+        for (let [key, value] of formData.entries()) {
+            data[key] = value;
+        }
+        
+        // Add metadata
+        data.submittedBy = currentUser;
+        data.submittedDate = new Date().toISOString();
+        data.hospital = data.currentHospital;
+        data.status = 'Active';
+        data.id = 'SPEC_' + Date.now();
+
+        console.log('Submitting specialist data:', data);
+
+        const result = await makeApiRequest({
+            action: 'insert',
+            sheet: 'Specialists',
+            data: data
+        });
+
+        console.log('Specialist submission result:', result);
+
+        if (result.success) {
+            showAlert('form1-alert', 'Specialist information submitted successfully!', 'success');
+            e.target.reset();
+            clearFormFromStorage(e.target.id);
             loadDashboardData();
+            populateOfficerDropdown(); // Refresh officer dropdown
+        } else {
+            showAlert('form1-alert', result.message || 'Error submitting data. Please try again.', 'error');
         }
+    } catch (error) {
+        console.error('Submission error:', error);
+        showAlert('form1-alert', 'Network error occurred. Please try again.', 'error');
+    } finally {
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+        hideGlobalLoading();
+    }
+}
 
-        function setupEventListeners() {
-            // Login form
-            document.getElementById('login-form').addEventListener('submit', handleLogin);
-            
-            // Logout
-            document.getElementById('logout-btn').addEventListener('click', handleLogout);
-            
-            // Sidebar navigation
-            document.querySelectorAll('.sidebar .nav-link').forEach(link => {
-                link.addEventListener('click', handleNavigation);
-            });
-            
-            // Forms
-            document.getElementById('specialist-form').addEventListener('submit', handleSpecialistSubmit);
-            document.getElementById('hospital-form').addEventListener('submit', handleHospitalSubmit);
-            document.getElementById('training-form').addEventListener('submit', handleTrainingSubmit);
-            document.getElementById('monthly-form').addEventListener('submit', handleMonthlySubmit);
-            document.getElementById('feedback-form').addEventListener('submit', handleFeedbackSubmit);
-            
-            // Search and refresh buttons
-            document.getElementById('search-btn').addEventListener('click', searchSpecialists);
-            document.getElementById('refresh-specialists').addEventListener('click', loadSpecialists);
-            document.getElementById('export-specialists').addEventListener('click', exportSpecialists);
+async function handleGeneralDataSubmit(e) {
+    e.preventDefault();
+    
+    if (!validateForm(e.target)) {
+        showAlert('form2-alert', 'Please fill in all required fields', 'error');
+        return;
+    }
+    
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    
+    try {
+        showGlobalLoading('Submitting general data...');
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 8px;"></i> Submitting...';
+        submitBtn.disabled = true;
+        
+        const formData = new FormData(e.target);
+        const data = {};
+        
+        for (let [key, value] of formData.entries()) {
+            data[key] = value;
         }
+        
+        data.submittedBy = currentUser;
+        data.submittedDate = new Date().toISOString();
+        data.id = 'GEN_' + Date.now();
 
-        // Authentication
-        async function handleLogin(e) {
-            e.preventDefault();
-            
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            
-            showLoading('login');
-            
-            try {
-                const response = await callGAS('login', { username, password });
-                
-                if (response.success) {
-                    currentUser = response.user;
-                    showApp();
-                    document.getElementById('user-info').textContent = `Welcome, ${currentUser.name}`;
-                    loadDashboardData();
-                } else {
-                    showLoginMessage(response.message || 'Invalid credentials');
-                }
-            } catch (error) {
-                showLoginMessage('Login failed. Please try again.');
-                console.error('Login error:', error);
+        console.log('Submitting general data:', data);
+
+        const result = await makeApiRequest({
+            action: 'insert',
+            sheet: 'GeneralData',
+            data: data
+        });
+
+        if (result.success) {
+            showAlert('form2-alert', 'General data submitted successfully!', 'success');
+            e.target.reset();
+            clearFormFromStorage(e.target.id);
+        } else {
+            showAlert('form2-alert', result.message || 'Error submitting data. Please try again.', 'error');
+        }
+    } catch (error) {
+        console.error('Submission error:', error);
+        showAlert('form2-alert', 'Network error occurred. Please try again.', 'error');
+    } finally {
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+        hideGlobalLoading();
+    }
+}
+
+async function handleTrainingSubmit(e) {
+    e.preventDefault();
+    
+    if (!validateForm(e.target)) {
+        showAlert('form3-alert', 'Please fill in all required fields', 'error');
+        return;
+    }
+    
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    
+    try {
+        showGlobalLoading('Submitting training data...');
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 8px;"></i> Submitting...';
+        submitBtn.disabled = true;
+        
+        const formData = new FormData(e.target);
+        const data = {};
+        
+        for (let [key, value] of formData.entries()) {
+            data[key] = value;
+        }
+        
+        data.submittedBy = currentUser;
+        data.submittedDate = new Date().toISOString();
+        data.status = 'Active';
+        data.id = 'TRN_' + Date.now();
+
+        console.log('Submitting training data:', data);
+
+        const result = await makeApiRequest({
+            action: 'insert',
+            sheet: 'TrainingTransfers',
+            data: data
+        });
+
+        if (result.success) {
+            showAlert('form3-alert', 'Training/Transfer record submitted successfully!', 'success');
+            e.target.reset();
+            clearFormFromStorage(e.target.id);
+        } else {
+            showAlert('form3-alert', result.message || 'Error submitting data. Please try again.', 'error');
+        }
+    } catch (error) {
+        console.error('Submission error:', error);
+        showAlert('form3-alert', 'Network error occurred. Please try again.', 'error');
+    } finally {
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+        hideGlobalLoading();
+    }
+}
+
+async function handleMonthlyUpdate(e) {
+    e.preventDefault();
+    
+    if (!validateForm(e.target)) {
+        showAlert('monthly-alert', 'Please fill in all required fields', 'error');
+        return;
+    }
+    
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    
+    try {
+        showGlobalLoading('Updating monthly status...');
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 8px;"></i> Updating...';
+        submitBtn.disabled = true;
+        
+        const formData = new FormData(e.target);
+        const data = {};
+        
+        for (let [key, value] of formData.entries()) {
+            data[key] = value;
+        }
+        
+        // Get officer details from dropdown
+        const officerDropdown = document.getElementById('update-officer');
+        if (officerDropdown && officerDropdown.value) {
+            const selectedOption = officerDropdown.options[officerDropdown.selectedIndex];
+            if (selectedOption && selectedOption.text) {
+                data.officerName = selectedOption.text.split(' - ')[0];
+                data.officerId = officerDropdown.value;
             }
-            
-            hideLoading('login');
+        } else {
+            showAlert('monthly-alert', 'Please select an officer', 'error');
+            return;
         }
+        
+        data.updatedBy = currentUser;
+        data.updateDate = new Date().toISOString();
+        data.id = 'MON_' + Date.now();
 
-        function handleLogout() {
-            currentUser = null;
-            showLogin();
-            document.getElementById('login-form').reset();
+        console.log('Submitting monthly update:', data);
+
+        const result = await makeApiRequest({
+            action: 'insert',
+            sheet: 'MonthlyUpdates',
+            data: data
+        });
+
+        if (result.success) {
+            showAlert('monthly-alert', 'Monthly status updated successfully!', 'success');
+            e.target.reset();
+            clearFormFromStorage(e.target.id);
+        } else {
+            showAlert('monthly-alert', result.message || 'Error updating status. Please try again.', 'error');
         }
+    } catch (error) {
+        console.error('Submission error:', error);
+        showAlert('monthly-alert', 'Network error occurred. Please try again.', 'error');
+    } finally {
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+        hideGlobalLoading();
+    }
+}
 
-        function showApp() {
-            document.getElementById('login-screen').classList.add('d-none');
-            document.getElementById('app-container').classList.remove('d-none');
+async function handleFeedbackSubmit(e) {
+    e.preventDefault();
+    
+    if (!validateForm(e.target)) {
+        showAlert('feedback-alert', 'Please fill in all required fields', 'error');
+        return;
+    }
+    
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    
+    try {
+        showGlobalLoading('Submitting feedback...');
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 8px;"></i> Submitting...';
+        submitBtn.disabled = true;
+        
+        const formData = new FormData(e.target);
+        const data = {};
+        
+        for (let [key, value] of formData.entries()) {
+            data[key] = value;
         }
+        
+        data.submittedBy = currentUser;
+        data.submittedDate = new Date().toISOString();
+        data.status = 'Open';
+        data.id = 'FB_' + Date.now();
 
-        function showLogin() {
-            document.getElementById('login-screen').classList.remove('d-none');
-            document.getElementById('app-container').classList.add('d-none');
+        console.log('Submitting feedback:', data);
+
+        const result = await makeApiRequest({
+            action: 'insert',
+            sheet: 'Feedback',
+            data: data
+        });
+
+        if (result.success) {
+            showAlert('feedback-alert', 'Feedback submitted successfully! We will review and respond soon.', 'success');
+            e.target.reset();
+            clearFormFromStorage(e.target.id);
+        } else {
+            showAlert('feedback-alert', result.message || 'Error submitting feedback. Please try again.', 'error');
         }
+    } catch (error) {
+        console.error('Submission error:', error);
+        showAlert('feedback-alert', 'Network error occurred. Please try again.', 'error');
+    } finally {
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+        hideGlobalLoading();
+    }
+}
 
-        // Navigation
-        function handleNavigation(e) {
-            e.preventDefault();
-            
-            // Update active link
-            document.querySelectorAll('.sidebar .nav-link').forEach(l => l.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Show corresponding section
-            const sectionId = `${this.getAttribute('data-section')}-section`;
-            document.querySelectorAll('.content-section').forEach(section => section.classList.add('d-none'));
-            document.getElementById(sectionId).classList.remove('d-none');
-            
-            // Load section-specific data
-            loadSectionData(this.getAttribute('data-section'));
+// Reports functionality
+async function generateReport(reportType) {
+    const tableBody = document.getElementById('report-table-body');
+    if (!tableBody) return;
+    
+    tableBody.innerHTML = '<tr><td colspan="5" class="loading"><i class="fas fa-spinner fa-spin" style="margin-right: 8px;"></i>Loading report data...</td></tr>';
+
+    let sheetName = '';
+    switch(reportType) {
+        case 'specialists':
+            sheetName = 'Specialists';
+            break;
+        case 'vacancies':
+            sheetName = 'Specialists';
+            break;
+        case 'transfers':
+            sheetName = 'TrainingTransfers';
+            break;
+        default:
+            sheetName = 'Specialists';
+    }
+
+    try {
+        showGlobalLoading('Generating report...');
+        const result = await makeApiRequest({
+            action: 'read',
+            sheet: sheetName
+        }, true);
+
+        if (result.success && result.data) {
+            displayReportData(result.data, reportType);
+        } else {
+            tableBody.innerHTML = '<tr><td colspan="5" style="color: var(--danger); text-align: center;">Error loading report data: ' + (result.message || 'Unknown error') + '</td></tr>';
         }
+    } catch (error) {
+        console.error('Error loading report:', error);
+        tableBody.innerHTML = '<tr><td colspan="5" style="color: var(--danger); text-align: center;">Network error loading report data</td></tr>';
+    } finally {
+        hideGlobalLoading();
+    }
+}
 
-        // Data Loading
-        async function loadDashboardData() {
-            try {
-                const data = await callGAS('getDashboardData');
-                if (data.success) {
-                    updateDashboardStats(data.stats);
-                    loadRecentSpecialists(data.recentSpecialists);
-                    loadSystemUpdates(data.systemUpdates);
-                }
-            } catch (error) {
-                console.error('Dashboard load error:', error);
-            }
-        }
+function displayReportData(data, reportType) {
+    const tableBody = document.getElementById('report-table-body');
+    if (!tableBody) return;
+    
+    tableBody.innerHTML = '';
 
-        async function loadSectionData(section) {
-            switch (section) {
-                case 'specialists':
-                    loadSpecialists();
-                    break;
-                case 'general-data':
-                    loadHospitals();
-                    break;
-                case 'training':
-                    loadTraining();
-                    break;
-                case 'monthly-updates':
-                    loadMonthlyReports();
-                    break;
-                case 'feedback':
-                    loadFeedback();
-                    break;
-            }
-        }
+    if (!data || data.length === 0) {
+        tableBody.innerHTML = '<tr><td colspan="5" style="text-align: center;">No data available</td></tr>';
+        return;
+    }
 
-        async function loadSpecialists() {
-            try {
-                const response = await callGAS('getSpecialists', { page: currentPage, limit: itemsPerPage });
-                if (response.success) {
-                    displaySpecialists(response.specialists);
-                    updatePagination(response.totalPages, currentPage, 'specialists');
-                }
-            } catch (error) {
-                console.error('Load specialists error:', error);
-            }
-        }
-
-        async function loadHospitals() {
-            try {
-                const response = await callGAS('getHospitals');
-                if (response.success) {
-                    displayHospitals(response.hospitals);
-                }
-            } catch (error) {
-                console.error('Load hospitals error:', error);
-            }
-        }
-
-        async function loadTraining() {
-            try {
-                const response = await callGAS('getTraining');
-                if (response.success) {
-                    displayTraining(response.training);
-                }
-            } catch (error) {
-                console.error('Load training error:', error);
-            }
-        }
-
-        async function loadMonthlyReports() {
-            try {
-                const response = await callGAS('getMonthlyReports');
-                if (response.success) {
-                    displayMonthlyReports(response.reports);
-                }
-            } catch (error) {
-                console.error('Load monthly reports error:', error);
-            }
-        }
-
-        async function loadFeedback() {
-            try {
-                const response = await callGAS('getFeedback');
-                if (response.success) {
-                    displayFeedback(response.feedback);
-                }
-            } catch (error) {
-                console.error('Load feedback error:', error);
-            }
-        }
-
-        // Form Handlers
-        async function handleSpecialistSubmit(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(e.target);
-            const specialistData = Object.fromEntries(formData.entries());
-            
-            showLoading('add-specialist');
-            
-            try {
-                const response = await callGAS('addSpecialist', specialistData);
-                
-                if (response.success) {
-                    showAlert('success', 'Specialist added successfully!');
-                    e.target.reset();
-                    loadSpecialists();
-                    loadDashboardData();
-                } else {
-                    showAlert('error', response.message || 'Failed to add specialist');
-                }
-            } catch (error) {
-                showAlert('error', 'Failed to add specialist. Please try again.');
-                console.error('Add specialist error:', error);
-            }
-            
-            hideLoading('add-specialist');
-        }
-
-        async function handleHospitalSubmit(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(e.target);
-            const hospitalData = Object.fromEntries(formData.entries());
-            
-            try {
-                const response = await callGAS('addHospital', hospitalData);
-                
-                if (response.success) {
-                    showAlert('success', 'Hospital added successfully!');
-                    e.target.reset();
-                    loadHospitals();
-                } else {
-                    showAlert('error', response.message || 'Failed to add hospital');
-                }
-            } catch (error) {
-                showAlert('error', 'Failed to add hospital. Please try again.');
-                console.error('Add hospital error:', error);
-            }
-        }
-
-        async function handleTrainingSubmit(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(e.target);
-            const trainingData = Object.fromEntries(formData.entries());
-            
-            try {
-                const response = await callGAS('addTraining', trainingData);
-                
-                if (response.success) {
-                    showAlert('success', 'Training program added successfully!');
-                    e.target.reset();
-                    loadTraining();
-                } else {
-                    showAlert('error', response.message || 'Failed to add training program');
-                }
-            } catch (error) {
-                showAlert('error', 'Failed to add training program. Please try again.');
-                console.error('Add training error:', error);
-            }
-        }
-
-        async function handleMonthlySubmit(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(e.target);
-            const monthlyData = Object.fromEntries(formData.entries());
-            
-            try {
-                const response = await callGAS('addMonthlyReport', monthlyData);
-                
-                if (response.success) {
-                    showAlert('success', 'Monthly report submitted successfully!');
-                    e.target.reset();
-                    loadMonthlyReports();
-                } else {
-                    showAlert('error', response.message || 'Failed to submit monthly report');
-                }
-            } catch (error) {
-                showAlert('error', 'Failed to submit monthly report. Please try again.');
-                console.error('Add monthly report error:', error);
-            }
-        }
-
-        async function handleFeedbackSubmit(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(e.target);
-            const feedbackData = Object.fromEntries(formData.entries());
-            
-            try {
-                const response = await callGAS('addFeedback', feedbackData);
-                
-                if (response.success) {
-                    showAlert('success', 'Feedback submitted successfully!');
-                    e.target.reset();
-                    loadFeedback();
-                } else {
-                    showAlert('error', response.message || 'Failed to submit feedback');
-                }
-            } catch (error) {
-                showAlert('error', 'Failed to submit feedback. Please try again.');
-                console.error('Add feedback error:', error);
-            }
-        }
-
-        // Display Functions
-        function updateDashboardStats(stats) {
-            document.getElementById('specialists-count').textContent = stats.specialists || 0;
-            document.getElementById('hospitals-count').textContent = stats.hospitals || 0;
-            document.getElementById('training-count').textContent = stats.training || 0;
-            document.getElementById('feedback-count').textContent = stats.feedback || 0;
-        }
-
-        function loadRecentSpecialists(specialists) {
-            const tbody = document.getElementById('recent-specialists');
-            tbody.innerHTML = specialists.map(specialist => `
-                <tr>
-                    <td>${specialist.fullName}</td>
-                    <td>${specialist.specialty}</td>
-                    <td>${specialist.currentHospital}</td>
-                </tr>
-            `).join('');
-        }
-
-        function loadSystemUpdates(updates) {
-            const container = document.getElementById('system-updates');
-            container.innerHTML = updates.map(update => `
-                <div class="list-group-item d-flex justify-content-between align-items-center">
-                    <div>
-                        <h6 class="mb-1">${update.title}</h6>
-                        <p class="mb-1">${update.description}</p>
-                    </div>
-                    <small class="text-muted">${update.date}</small>
-                </div>
-            `).join('');
-        }
-
-        function displaySpecialists(specialists) {
-            const tbody = document.getElementById('specialists-table');
-            tbody.innerHTML = specialists.map(specialist => `
-                <tr>
-                    <td>${specialist.fullName}</td>
-                    <td>${specialist.specialty}</td>
-                    <td>${specialist.grade}</td>
-                    <td>${specialist.currentHospital}</td>
-                    <td>${specialist.contact}</td>
-                    <td class="action-buttons">
-                        <button class="btn btn-sm btn-info" onclick="viewSpecialist('${specialist.id}')">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                        <button class="btn btn-sm btn-warning" onclick="editSpecialist('${specialist.id}')">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn btn-sm btn-danger" onclick="deleteSpecialist('${specialist.id}')">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-            `).join('');
-        }
-
-        function displayHospitals(hospitals) {
-            const tbody = document.getElementById('hospitals-table');
-            tbody.innerHTML = hospitals.map(hospital => `
-                <tr>
-                    <td>${hospital.hospitalName}</td>
-                    <td>${hospital.hospitalType}</td>
-                    <td>${hospital.province}</td>
-                    <td>${hospital.bedCapacity}</td>
-                    <td class="action-buttons">
-                        <button class="btn btn-sm btn-info" onclick="viewHospital('${hospital.id}')">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                        <button class="btn btn-sm btn-warning" onclick="editHospital('${hospital.id}')">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn btn-sm btn-danger" onclick="deleteHospital('${hospital.id}')">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-            `).join('');
-        }
-
-        function displayTraining(training) {
-            const tbody = document.getElementById('training-table');
-            tbody.innerHTML = training.map(program => `
-                <tr>
-                    <td>${program.trainingTitle}</td>
-                    <td>${program.trainingType}</td>
-                    <td>${program.startDate}</td>
-                    <td>${program.endDate}</td>
-                    <td>${program.instructor}</td>
-                    <td>${program.currentParticipants}/${program.maxParticipants}</td>
-                    <td class="action-buttons">
-                        <button class="btn btn-sm btn-info" onclick="viewTraining('${program.id}')">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                        <button class="btn btn-sm btn-warning" onclick="editTraining('${program.id}')">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn btn-sm btn-danger" onclick="deleteTraining('${program.id}')">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-            `).join('');
-        }
-
-        function displayMonthlyReports(reports) {
-            const tbody = document.getElementById('monthly-reports-table');
-            tbody.innerHTML = reports.map(report => `
-                <tr>
-                    <td>${report.reportMonth}</td>
-                    <td>${report.reportingHospital}</td>
-                    <td>${report.patientCount}</td>
-                    <td>${report.emergencyCount}</td>
-                    <td>${report.submittedDate}</td>
-                    <td class="action-buttons">
-                        <button class="btn btn-sm btn-info" onclick="viewReport('${report.id}')">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                        <button class="btn btn-sm btn-warning" onclick="editReport('${report.id}')">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn btn-sm btn-danger" onclick="deleteReport('${report.id}')">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-            `).join('');
-        }
-
-        function displayFeedback(feedback) {
-            const tbody = document.getElementById('feedback-table');
-            tbody.innerHTML = feedback.map(item => `
-                <tr>
-                    <td>${item.submittedDate}</td>
-                    <td>${item.feedbackType}</td>
-                    <td>${item.feedbackTitle}</td>
-                    <td><span class="badge bg-${getPriorityColor(item.priority)}">${item.priority}</span></td>
-                    <td><span class="badge bg-${getStatusColor(item.status)}">${item.status}</span></td>
-                    <td class="action-buttons">
-                        <button class="btn btn-sm btn-info" onclick="viewFeedback('${item.id}')">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                        <button class="btn btn-sm btn-warning" onclick="editFeedback('${item.id}')">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn btn-sm btn-danger" onclick="deleteFeedback('${item.id}')">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-            `).join('');
-        }
-
-        // Utility Functions
-        async function callGAS(action, data = {}) {
-            const response = await fetch(GAS_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    action: action,
-                    data: data
-                })
-            });
-            
-            return await response.json();
-        }
-
-        function showLoading(buttonId) {
-            const button = document.getElementById(`${buttonId}-btn`);
-            const text = document.getElementById(`${buttonId}-text`) || button.querySelector('span:not(.loading)');
-            const loading = document.getElementById(`${buttonId}-loading`) || button.querySelector('.loading');
-            
-            if (text) text.classList.add('d-none');
-            if (loading) loading.classList.remove('d-none');
-            if (button) button.disabled = true;
-        }
-
-        function hideLoading(buttonId) {
-            const button = document.getElementById(`${buttonId}-btn`);
-            const text = document.getElementById(`${buttonId}-text`) || button.querySelector('span:not(.loading)');
-            const loading = document.getElementById(`${buttonId}-loading`) || button.querySelector('.loading');
-            
-            if (text) text.classList.remove('d-none');
-            if (loading) loading.classList.add('d-none');
-            if (button) button.disabled = false;
-        }
-
-        function showAlert(type, message) {
-            // Create and show alert
-            const alertDiv = document.createElement('div');
-            alertDiv.className = `alert alert-${type === 'error' ? 'danger' : 'success'} alert-dismissible fade show position-fixed`;
-            alertDiv.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
-            alertDiv.innerHTML = `
-                ${message}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    data.forEach(item => {
+        const row = document.createElement('tr');
+        if (reportType === 'specialists') {
+            row.innerHTML = `
+                <td>${escapeHtml(item.name || 'N/A')}</td>
+                <td><span class="specialty-badge">${escapeHtml(item.specialty || 'N/A')}</span></td>
+                <td>${escapeHtml(item.currentHospital || item.hospital || 'N/A')}</td>
+                <td><span class="status-indicator status-${(item.status || 'Available').toLowerCase().replace(' ', '-')}"></span>${escapeHtml(item.status || 'Available')}</td>
+                <td>${formatDate(item.submittedDate) || 'N/A'}</td>
             `;
-            
-            document.body.appendChild(alertDiv);
-            
-            // Auto remove after 5 seconds
-            setTimeout(() => {
-                if (alertDiv.parentNode) {
-                    alertDiv.remove();
+        } else if (reportType === 'transfers') {
+            row.innerHTML = `
+                <td>${escapeHtml(item.officerName || item.name || 'N/A')}</td>
+                <td>${escapeHtml(item.type || 'N/A')}</td>
+                <td>${escapeHtml(item.fromLocation || 'N/A')}</td>
+                <td>${escapeHtml(item.toLocation || 'N/A')}</td>
+                <td>${formatDate(item.submittedDate) || 'N/A'}</td>
+            `;
+        }
+        tableBody.appendChild(row);
+    });
+}
+
+function loadReportsData() {
+    generateReport('specialists');
+}
+
+// Utility functions
+function showAlert(elementId, message, type) {
+    const alertElement = document.getElementById(elementId);
+    const alertTextElement = document.getElementById(`${elementId}-text`);
+    
+    if (!alertElement || !alertTextElement) {
+        console.warn(`Alert elements not found: ${elementId}`);
+        return;
+    }
+    
+    alertElement.classList.remove('alert-success', 'alert-error', 'alert-info');
+    alertElement.classList.add(`alert-${type}`);
+    alertTextElement.textContent = message;
+    alertElement.classList.remove('hidden');
+    
+    if (type === 'success') {
+        setTimeout(() => {
+            hideAlert(elementId);
+        }, 5000);
+    }
+}
+
+function hideAlert(elementId) {
+    const alertElement = document.getElementById(elementId);
+    if (alertElement) {
+        alertElement.classList.add('hidden');
+    }
+}
+
+function hideAllAlerts() {
+    const alerts = document.querySelectorAll('.alert');
+    alerts.forEach(alert => alert.classList.add('hidden'));
+}
+
+function formatDate(dateString) {
+    if (!dateString) return 'N/A';
+    try {
+        const date = new Date(dateString);
+        return isNaN(date.getTime()) ? 'N/A' : date.toLocaleDateString('en-GB');
+    } catch (e) {
+        return 'N/A';
+    }
+}
+
+function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+// Form validation
+function validateForm(formElement) {
+    if (!formElement) return false;
+    
+    const requiredFields = formElement.querySelectorAll('[required]');
+    let isValid = true;
+    
+    requiredFields.forEach(field => {
+        const value = field.value ? field.value.trim() : '';
+        if (!value) {
+            field.style.borderColor = 'var(--danger)';
+            isValid = false;
+        } else {
+            field.style.borderColor = 'var(--border)';
+        }
+    });
+    
+    return isValid;
+}
+
+// Setup form validation
+function setupFormValidation() {
+    const forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            if (!validateForm(form)) {
+                e.preventDefault();
+                const alertId = form.id.replace('-form', '-alert');
+                showAlert(alertId, 'Please fill in all required fields', 'error');
+            }
+        });
+        
+        // Real-time validation
+        const requiredFields = form.querySelectorAll('[required]');
+        requiredFields.forEach(field => {
+            field.addEventListener('blur', function() {
+                const value = this.value ? this.value.trim() : '';
+                if (!value) {
+                    this.style.borderColor = 'var(--danger)';
+                } else {
+                    this.style.borderColor = 'var(--border)';
                 }
-            }, 5000);
-        }
+            });
+        });
+    });
+}
 
-        function showLoginMessage(message) {
-            const loginMessage = document.getElementById('login-message');
-            loginMessage.textContent = message;
-            loginMessage.classList.remove('d-none');
-            setTimeout(() => {
-                loginMessage.classList.add('d-none');
-            }, 3000);
-        }
-
-        function getPriorityColor(priority) {
-            const colors = {
-                'Low': 'success',
-                'Medium': 'warning',
-                'High': 'danger',
-                'Critical': 'dark'
-            };
-            return colors[priority] || 'secondary';
-        }
-
-        function getStatusColor(status) {
-            const colors = {
-                'Open': 'warning',
-                'In Progress': 'info',
-                'Resolved': 'success',
-                'Closed': 'secondary'
-            };
-            return colors[status] || 'secondary';
-        }
-
-        // Search and filter functions
-        async function searchSpecialists() {
-            const searchTerm = document.getElementById('search-specialists').value;
-            try {
-                const response = await callGAS('searchSpecialists', { searchTerm });
-                if (response.success) {
-                    displaySpecialists(response.specialists);
+// Auto-save functionality
+function setupAutoSave() {
+    const forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+        const inputs = form.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('input', function() {
+                const formId = form.id;
+                const fieldName = input.name;
+                const value = input.value;
+                
+                if (formId && fieldName && input.type !== 'password') {
+                    try {
+                        sessionStorage.setItem(`${formId}_${fieldName}`, value);
+                    } catch (e) {
+                        console.warn('Could not save to sessionStorage:', e);
+                    }
                 }
-            } catch (error) {
-                console.error('Search error:', error);
-            }
-        }
+            });
+        });
+    });
+}
 
-        // Export function
-        async function exportSpecialists() {
-            try {
-                const response = await callGAS('exportSpecialists');
-                if (response.success && response.downloadUrl) {
-                    window.open(response.downloadUrl, '_blank');
+function restoreFormData() {
+    const forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+        const inputs = form.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+            const formId = form.id;
+            const fieldName = input.name;
+            
+            if (formId && fieldName && input.type !== 'password') {
+                try {
+                    const savedValue = sessionStorage.getItem(`${formId}_${fieldName}`);
+                    if (savedValue && input.type !== 'submit') {
+                        input.value = savedValue;
+                    }
+                } catch (e) {
+                    console.warn('Could not restore from sessionStorage:', e);
                 }
-            } catch (error) {
-                console.error('Export error:', error);
             }
-        }
+        });
+    });
+}
 
-        // Pagination
-        function updatePagination(totalPages, currentPageNum, type) {
-            const container = document.getElementById('pagination-container');
-            let paginationHtml = '<ul class="pagination justify-content-center">';
-            
-            // Previous button
-            paginationHtml += `<li class="page-item ${currentPageNum === 1 ? 'disabled' : ''}">
-                <a class="page-link" href="#" onclick="changePage(${currentPageNum - 1}, '${type}')">Previous</a>
-            </li>`;
-            
-            // Page numbers
-            for (let i = 1; i <= totalPages; i++) {
-                paginationHtml += `<li class="page-item ${i === currentPageNum ? 'active' : ''}">
-                    <a class="page-link" href="#" onclick="changePage(${i}, '${type}')">${i}</a>
-                </li>`;
+function clearFormFromStorage(formId) {
+    if (!formId) return;
+    
+    try {
+        // Get all storage keys
+        const keys = Object.keys(sessionStorage);
+        
+        // Remove all keys that start with the form ID
+        keys.forEach(key => {
+            if (key.startsWith(`${formId}_`)) {
+                sessionStorage.removeItem(key);
             }
-            
-            // Next button
-            paginationHtml += `<li class="page-item ${currentPageNum === totalPages ? 'disabled' : ''}">
-                <a class="page-link" href="#" onclick="changePage(${currentPageNum + 1}, '${type}')">Next</a>
-            </li>`;
-            
-            paginationHtml += '</ul>';
-            container.innerHTML = paginationHtml;
-        }
+        });
+    } catch (e) {
+        console.warn('Could not clear form data from storage:', e);
+    }
+}
 
-        function changePage(page, type) {
-            currentPage = page;
-            if (type === 'specialists') {
-                loadSpecialists();
+function clearSavedFormData() {
+    try {
+        const keys = Object.keys(sessionStorage);
+        keys.forEach(key => {
+            if (key.includes('-form_')) {
+                sessionStorage.removeItem(key);
             }
-        }
-
-        // CRUD operations (placeholders)
-        function viewSpecialist(id) { console.log('View specialist:', id); }
-        function editSpecialist(id) { console.log('Edit specialist:', id); }
-        function deleteSpecialist(id) { 
-            if (confirm('Are you sure you want to delete this specialist?')) {
-                console.log('Delete specialist:', id);
-            }
-        }
-
-        function viewHospital(id) { console.log('View hospital:', id); }
-        function editHospital(id) { console.log('Edit hospital:', id); }
-        function deleteHospital(id) { 
-            if (confirm('Are you sure you want to delete this hospital?')) {
-                console.log('Delete hospital:', id);
-            }
-        }
-
-        function viewTraining(id) { console.log('View training:', id); }
-        function editTraining(id) { console.log('Edit training:', id); }
-        function deleteTraining(id) { 
-            if (confirm('Are you sure you want to delete this training program?')) {
-                console.log('Delete training:', id);
-            }
-        }
-
-        function viewReport(id) { console.log('View report:', id); }
-        function editReport(id) { console.log('Edit report:', id); }
-        function deleteReport(id) { 
-            if (confirm('Are you sure you want to delete this report?')) {
-                console.log('Delete report:', id);
-            }
-        }
-
-        function viewFeedback(id) { console.log('View feedback:', id); }
-        function editFeedback(id) { console.log('Edit feedback:', id); }
-        function deleteFeedback(id) { 
-            if (confirm('Are you sure you want to delete this feedback?')) {
-                console.log('Delete feedback:', id);
-            }
-        }
+        });
+    } catch (e) {
+        console.warn('Could not clear saved form data:', e);
+    }
+}
     </script>
 </body>
 </html>
