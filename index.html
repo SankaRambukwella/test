@@ -3,1837 +3,1169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>National Surveillance System - Medical Officers</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>National Surveillance System - Ministry of Health Sri Lanka</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --primary: #1e40af;
-            --primary-dark: #1e3a8a;
-            --primary-light: #dbeafe;
-            --secondary: #475569;
-            --success: #059669;
-            --warning: #d97706;
-            --danger: #dc2626;
-            --light: #f8fafc;
-            --dark: #1e293b;
-            --gray: #64748b;
-            --border: #e2e8f0;
-            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-            --hover-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+            --primary: #0d6efd;
+            --secondary: #6c757d;
+            --success: #198754;
+            --info: #0dcaf0;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --ministry-blue: #005baa;
+            --ministry-green: #007e33;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
-            background-color: #f1f5f9;
-            color: var(--dark);
-            line-height: 1.6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fb;
+            color: #333;
         }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+        
+        .navbar {
+            background-color: var(--ministry-blue);
         }
-
-        .header {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            padding: 28px 32px;
-            border-radius: 12px;
-            margin-bottom: 30px;
-            box-shadow: var(--card-shadow);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 100%;
-            height: 200%;
-            background: rgba(255, 255, 255, 0.1);
-            transform: rotate(32deg);
-        }
-
-        .header h1 {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            letter-spacing: -0.5px;
-            position: relative;
-        }
-
-        .header p {
-            font-size: 16px;
-            opacity: 0.9;
-            font-weight: 400;
-            position: relative;
-        }
-
+        
         .card {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: var(--card-shadow);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            border: 1px solid var(--border);
-        }
-
-        .card:hover {
-            box-shadow: var(--hover-shadow);
-        }
-
-        .login-card {
-            max-width: 440px;
-            margin: 60px auto;
-            padding: 40px;
-        }
-
-        .form-group {
-            margin-bottom: 24px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--dark);
-            font-size: 14px;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 14px 16px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            font-size: 15px;
-            transition: all 0.2s ease;
-            background-color: white;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
-        }
-
-        .btn {
-            background: var(--primary);
-            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
             border: none;
-            padding: 14px 26px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 15px;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
         }
-
-        .btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: var(--card-shadow);
-        }
-
-        .btn-secondary {
-            background: var(--secondary);
-        }
-
-        .btn-secondary:hover {
-            background: #374151;
-        }
-
-        .nav-menu {
-            background: white;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 30px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            box-shadow: var(--card-shadow);
-            border: 1px solid var(--border);
-        }
-
-        .nav-item {
-            flex: 1;
-            min-width: 140px;
-            padding: 14px 18px;
-            background: white;
-            color: var(--secondary);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            text-align: center;
-        }
-
-        .nav-item:hover {
-            background: var(--primary-light);
-            color: var(--primary);
-            border-color: var(--primary-light);
-        }
-
-        .nav-item.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        .section {
-            display: none;
-        }
-
-        .section.active {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 24px;
-            margin-bottom: 24px;
-        }
-
-        .status-indicator {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            margin-right: 8px;
-        }
-
-        .status-available { background-color: var(--success); }
-        .status-transferred { background-color: var(--warning); }
-        .status-temporary { background-color: var(--danger); }
-        .status-vacant { background-color: var(--danger); }
-
-        .table-container {
-            overflow-x: auto;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
-            border: 1px solid var(--border);
-            margin-top: 24px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            background: white;
-            font-size: 14px;
-        }
-
-        th, td {
-            padding: 16px 18px;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
-        }
-
-        th {
-            background-color: #f8fafc;
-            color: var(--dark);
-            font-weight: 600;
-            position: sticky;
-            top: 0;
-        }
-
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        tr:hover {
-            background-color: #f8fafc;
-        }
-
-        .alert {
-            padding: 16px 20px;
-            border-radius: 8px;
-            margin-bottom: 24px;
-            font-weight: 500;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-        }
-
-        .alert-success {
-            background-color: #f0fdf4;
-            color: #166534;
-            border: 1px solid #bbf7d0;
-        }
-
-        .alert-error {
-            background-color: #fef2f2;
-            color: #991b1b;
-            border: 1px solid #fecaca;
-        }
-
-        .user-info {
-            background: white;
-            color: var(--dark);
-            padding: 20px 26px;
-            border-radius: 12px;
-            margin-bottom: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: var(--card-shadow);
-            border: 1px solid var(--border);
-        }
-
-        .logout-btn {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--secondary);
-            padding: 10px 18px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            transition: all 0.2s ease;
-        }
-
-        .logout-btn:hover {
-            background: #f8fafc;
-            color: var(--dark);
-        }
-
-        .loading {
-            text-align: center;
-            padding: 40px;
-            color: var(--gray);
-            font-size: 15px;
-        }
-
-        .specialty-badge {
-            display: inline-block;
-            background: var(--primary-light);
-            color: var(--primary-dark);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
-            margin: 2px;
-        }
-
-        .stat-card {
-            text-align: center;
-            padding: 28px 22px;
-            border-radius: 12px;
-            color: white;
-            box-shadow: var(--card-shadow);
-            transition: transform 0.2s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-3px);
-        }
-
-        .stat-card h3 {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .stat-card p {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-
-        .update-item {
-            background: #f8fafc;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 16px;
-            border-left: 4px solid var(--primary);
-        }
-
-        .update-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .section-title {
-            font-size: 22px;
-            font-weight: 600;
-            margin-bottom: 24px;
-            color: var(--dark);
-            padding-bottom: 14px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        /* New enhancements */
-        .form-header {
-            margin-bottom: 28px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .form-header h2 {
-            font-size: 22px;
-            font-weight: 600;
-            color: var(--dark);
-        }
-
-        .required-field::after {
-            content: "*";
-            color: var(--danger);
-            margin-left: 4px;
-        }
-
-        .input-hint {
-            font-size: 13px;
-            color: var(--gray);
-            margin-top: 8px;
-        }
-
-        .table-actions {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-
-        .search-box {
-            padding: 12px 16px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            font-size: 14px;
-            width: 280px;
-        }
-
-        .filter-select {
-            padding: 12px 16px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            font-size: 14px;
-            background: white;
-        }
-
-        .pagination {
-            display: flex;
-            justify-content: center;
-            margin-top: 28px;
-            gap: 10px;
-        }
-
-        .pagination-btn {
-            padding: 10px 16px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            background: white;
-            color: var(--dark);
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.2s ease;
-        }
-
-        .pagination-btn.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        .pagination-btn:hover:not(.active) {
-            background: #f8fafc;
-        }
-
-        .icon-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .icon-btn i {
-            font-size: 16px;
-        }
-
-        /* Professional enhancements */
+        
         .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-
-        .card-title {
-            font-size: 18px;
+            background-color: var(--ministry-blue);
+            color: white;
+            border-radius: 10px 10px 0 0 !important;
             font-weight: 600;
-            color: var(--dark);
         }
-
-        .card-actions {
-            display: flex;
-            gap: 10px;
+        
+        .btn-primary {
+            background-color: var(--ministry-blue);
+            border-color: var(--ministry-blue);
         }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+        
+        .btn-primary:hover {
+            background-color: #004888;
+            border-color: #004888;
         }
-
+        
+        .status-available { background-color: #d4edda; }
+        .status-transfer { background-color: #fff3cd; }
+        .status-retire { background-color: #e2e3e5; }
+        .status-maternity { background-color: #d1ecf1; }
+        .status-nopay { background-color: #f8d7da; }
+        .status-pgim { background-color: #cce5ff; }
+        .status-vacant { background-color: #f8d7da; color: #dc3545; font-weight: bold; }
+        .status-temp-attach { background-color: #e0d4f7; }
+        .status-temp-released { background-color: #fef5cd; }
+        .status-vacation { background-color: #d1f7f3; }
+        .status-paidleave { background-color: #d4f0fd; }
+        
+        .dashboard-card {
+            transition: transform 0.3s;
+        }
+        
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+        }
+        
         .form-section {
-            background: #f8fafc;
-            padding: 24px;
-            border-radius: 8px;
-            margin-bottom: 24px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .logo-container {
+            text-align: center;
+            padding: 20px 0;
+            background-color: white;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .nav-tabs .nav-link.active {
+            font-weight: bold;
+            border-bottom: 3px solid var(--ministry-blue);
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 20px 0;
+            margin-top: 40px;
         }
 
-        .form-section-title {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 16px;
-            color: var(--dark);
+        /* Accessibility improvements */
+        .btn:focus,
+        .form-control:focus,
+        .form-select:focus {
+            outline: 2px solid var(--ministry-blue);
+            outline-offset: 2px;
         }
 
-        .divider {
+        .sr-only {
+            position: absolute;
+            width: 1px;
             height: 1px;
-            background: var(--border);
-            margin: 28px 0;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
         }
 
-        @media (max-width: 768px) {
-            .container {
-                padding: 16px;
-            }
-            
-            .header {
-                padding: 22px;
-            }
-            
-            .header h1 {
-                font-size: 24px;
-            }
-            
-            .nav-menu {
-                flex-direction: column;
-            }
-            
-            .nav-item {
-                min-width: auto;
-            }
-            
-            .form-row {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-            
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
             .card {
-                padding: 22px;
+                border: 2px solid var(--dark);
             }
-            
-            .user-info {
-                flex-direction: column;
-                gap: 16px;
-                text-align: center;
+            .btn-primary {
+                border: 2px solid var(--dark);
             }
-            
-            .stat-card {
-                margin-bottom: 16px;
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            .dashboard-card {
+                transition: none;
             }
-            
-            .table-actions {
-                flex-direction: column;
+            .dashboard-card:hover {
+                transform: none;
             }
-            
-            .search-box {
-                width: 100%;
+        }
+        
+        @media (max-width: 768px) {
+            .card {
+                margin-bottom: 15px;
             }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="container">
+    <!-- Skip to main content link for screen readers -->
+    <a href="#main-content" class="sr-only">Skip to main content</a>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark" role="navigation" aria-label="Main navigation">
+        <div class="container">
+            <a class="navbar-brand" href="#" aria-label="Ministry of Health Sri Lanka Home">
+                <i class="fas fa-hospital-alt me-2" aria-hidden="true"></i>
+                Ministry of Health Sri Lanka
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto" role="menubar">
+                    <li class="nav-item" role="none">
+                        <a class="nav-link active" href="#" role="menuitem" aria-current="page">
+                            <i class="fas fa-home me-1" aria-hidden="true"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a class="nav-link" href="#data-entry" role="menuitem">
+                            <i class="fas fa-edit me-1" aria-hidden="true"></i> Data Entry
+                        </a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a class="nav-link" href="#dashboard" role="menuitem">
+                            <i class="fas fa-chart-bar me-1" aria-hidden="true"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a class="nav-link" href="#feedback" role="menuitem">
+                            <i class="fas fa-comment me-1" aria-hidden="true"></i> Feedback
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main id="main-content" class="container mt-4">
         <!-- Header -->
-        <div class="header">
+        <header class="logo-container">
             <h1>National Surveillance System</h1>
-            <p>Specialist Grade Medical Officers - Ministry of Health Sri Lanka</p>
-        </div>
-
-        <!-- Login Section -->
-        <div id="login-section" class="section active">
-            <div class="login-card card">
-                <h2 style="text-align: center; margin-bottom: 30px; color: var(--dark);">System Login</h2>
-                <div id="login-alert" class="alert alert-error hidden">
-                    <i class="fas fa-exclamation-circle" style="margin-right: 10px;"></i>
-                    <span id="login-alert-text"></span>
-                </div>
-                <form id="login-form">
-                    <div class="form-group">
-                        <label for="username" class="required-field">Username</label>
-                        <input type="text" id="username" name="username" required>
+            <p class="lead">Specialist Grade Medical Officers</p>
+            <div class="row mt-4">
+                <div class="col-md-4 mb-3">
+                    <div class="card dashboard-card text-center">
+                        <div class="card-body">
+                            <h2><i class="fas fa-user-md text-primary" aria-hidden="true"></i> Total Specialists</h2>
+                            <p class="h3" id="total-specialists" aria-live="polite">0</p>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="password" class="required-field">Password</label>
-                        <input type="password" id="password" name="password" required>
-                        <div class="input-hint">Use your ministry-issued credentials</div>
-                    </div>
-                    <button type="submit" class="btn" style="width: 100%;">
-                        <i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i> Login
-                    </button>
-                </form>
-            </div>
-        </div>
-
-        <!-- Main Application -->
-        <div id="main-app" class="section">
-            <!-- User Info Bar -->
-            <div class="user-info">
-                <div>
-                    <span>Welcome, <strong id="user-name">User</strong></span>
-                    <span id="user-role" class="specialty-badge"></span>
                 </div>
-                <button class="logout-btn" onclick="logout()">
-                    <i class="fas fa-sign-out-alt" style="margin-right: 8px;"></i> Logout
-                </button>
+                <div class="col-md-4 mb-3">
+                    <div class="card dashboard-card text-center">
+                        <div class="card-body">
+                            <h2><i class="fas fa-bed text-success" aria-hidden="true"></i> Available</h2>
+                            <p class="h3" id="available-count" aria-live="polite">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card dashboard-card text-center">
+                        <div class="card-body">
+                            <h2><i class="fas fa-exclamation-triangle text-danger" aria-hidden="true"></i> Vacant Posts</h2>
+                            <p class="h3" id="vacant-count" aria-live="polite">0</p>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </header>
 
-            <!-- Navigation Menu -->
-            <div class="nav-menu">
-                <button class="nav-item active" onclick="showSection('dashboard')">
-                    <i class="fas fa-chart-line" style="margin-right: 8px;"></i> Dashboard
+        <!-- Tabs for different sections -->
+        <ul class="nav nav-tabs mb-4" id="myTab" role="tablist" aria-label="System sections">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="data-tab" data-bs-toggle="tab" data-bs-target="#data-entry" 
+                        type="button" role="tab" aria-controls="data-entry" aria-selected="true"
+                        title="Navigate to Data Entry section">
+                    <i class="fas fa-edit me-1" aria-hidden="true"></i> Data Entry
                 </button>
-                <button class="nav-item" onclick="showSection('form1')">
-                    <i class="fas fa-user-md" style="margin-right: 8px;"></i> Specialist Info
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="update-tab" data-bs-toggle="tab" data-bs-target="#monthly-update" 
+                        type="button" role="tab" aria-controls="monthly-update" aria-selected="false"
+                        title="Navigate to Monthly Update section">
+                    <i class="fas fa-sync me-1" aria-hidden="true"></i> Monthly Update
                 </button>
-                <button class="nav-item" onclick="showSection('form2')">
-                    <i class="fas fa-hospital" style="margin-right: 8px;"></i> General Data
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="dashboard-tab" data-bs-toggle="tab" data-bs-target="#dashboard" 
+                        type="button" role="tab" aria-controls="dashboard" aria-selected="false"
+                        title="Navigate to Dashboard section">
+                    <i class="fas fa-chart-bar me-1" aria-hidden="true"></i> Dashboard
                 </button>
-                <button class="nav-item" onclick="showSection('form3')">
-                    <i class="fas fa-exchange-alt" style="margin-right: 8px;"></i> Training & Transfers
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="feedback-tab" data-bs-toggle="tab" data-bs-target="#feedback" 
+                        type="button" role="tab" aria-controls="feedback" aria-selected="false"
+                        title="Navigate to Feedback section">
+                    <i class="fas fa-comment me-1" aria-hidden="true"></i> Feedback
                 </button>
-                <button class="nav-item" onclick="showSection('monthly-updates')">
-                    <i class="fas fa-calendar-alt" style="margin-right: 8px;"></i> Monthly Updates
-                </button>
-                <button class="nav-item" onclick="showSection('reports')">
-                    <i class="fas fa-file-alt" style="margin-right: 8px;"></i> Reports
-                </button>
-                <button class="nav-item" onclick="showSection('feedback')">
-                    <i class="fas fa-comments" style="margin-right: 8px;"></i> Feedback
-                </button>
-            </div>
+            </li>
+        </ul>
 
-            <!-- Dashboard Section -->
-            <div id="dashboard" class="section active">
+        <div class="tab-content" id="myTabContent">
+            <!-- Data Entry Form -->
+            <section class="tab-pane fade show active" id="data-entry" role="tabpanel" aria-labelledby="data-tab">
                 <div class="card">
-                    <div class="section-title">System Dashboard</div>
-                    <div class="stats-grid">
-                        <div class="stat-card" style="background: linear-gradient(135deg, var(--success), #059669);">
-                            <h3 id="total-specialists">0</h3>
-                            <p>Total Specialists</p>
-                        </div>
-                        <div class="stat-card" style="background: linear-gradient(135deg, var(--warning), #d97706);">
-                            <h3 id="active-posts">0</h3>
-                            <p>Active Posts</p>
-                        </div>
-                        <div class="stat-card" style="background: linear-gradient(135deg, var(--danger), #dc2626);">
-                            <h3 id="vacant-posts">0</h3>
-                            <p>Vacant Posts</p>
-                        </div>
+                    <div class="card-header">
+                        <h2><i class="fas fa-user-plus me-2" aria-hidden="true"></i>New Specialist Medical Officer Entry</h2>
                     </div>
-                    <div id="recent-updates">
-                        <h3 style="margin-bottom: 20px;">Recent Updates</h3>
-                        <div class="update-item">
-                            <p><strong>Dr. Silva</strong> - Status updated to "Available" at Teaching Hospital Colombo</p>
-                            <small style="color: var(--gray);">2 hours ago</small>
-                        </div>
-                        <div class="update-item">
-                            <p><strong>Dr. Fernando</strong> - New transfer to Hospital A approved</p>
-                            <small style="color: var(--gray);">1 day ago</small>
-                        </div>
-                        <div class="update-item">
-                            <p><strong>Dr. Perera</strong> - Completed training program in Radiology</p>
-                            <small style="color: var(--gray);">3 days ago</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Form 1: Specialist Information -->
-            <div id="form1" class="section">
-                <div class="card">
-                    <div class="form-header">
-                        <h2><i class="fas fa-user-md" style="margin-right: 10px;"></i>Form 1 - Specialist Information Format</h2>
-                    </div>
-                    <div id="form1-alert" class="alert alert-success hidden">
-                        <i class="fas fa-check-circle" style="margin-right: 10px;"></i>
-                        <span id="form1-alert-text"></span>
-                    </div>
-                    <form id="specialist-form">
-                        <div class="form-section">
-                            <div class="form-section-title">Personal Information</div>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="spec-name" class="required-field">Full Name</label>
-                                    <input type="text" id="spec-name" name="name" required>
+                    <div class="card-body">
+                        <form id="specialist-form" novalidate>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="name" class="form-label">Name with Initials *</label>
+                                    <input type="text" class="form-control" id="name" required 
+                                           aria-describedby="name-help" title="Enter full name with initials">
+                                    <div id="name-help" class="form-text">Please enter the complete name with initials</div>
+                                    <div class="invalid-feedback">Please provide a valid name.</div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="spec-nic" class="required-field">NIC Number</label>
-                                    <input type="text" id="spec-nic" name="nic" required>
+                                <div class="col-md-6 mb-3">
+                                    <label for="previousName" class="form-label">Previous Name (if changed)</label>
+                                    <input type="text" class="form-control" id="previousName" 
+                                           title="Enter previous name if it was changed">
                                 </div>
                             </div>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="spec-contact" class="required-field">Contact Number</label>
-                                    <input type="tel" id="spec-contact" name="contact" required>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="nic" class="form-label">NIC Number *</label>
+                                    <input type="text" class="form-control" id="nic" required 
+                                           pattern="^([0-9]{9}[Vv]|[0-9]{12})$"
+                                           title="Enter valid NIC number (9 digits + V or 12 digits)">
+                                    <div class="invalid-feedback">Please provide a valid NIC number.</div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="spec-email">Email</label>
-                                    <input type="email" id="spec-email" name="email">
+                                <div class="col-md-6 mb-3">
+                                    <label for="gender" class="form-label">Gender *</label>
+                                    <select class="form-select" id="gender" required 
+                                            title="Select gender" aria-describedby="gender-help">
+                                        <option value="">Select Gender</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    </select>
+                                    <div id="gender-help" class="form-text">Please select your gender</div>
+                                    <div class="invalid-feedback">Please select a gender.</div>
                                 </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="specialty" class="form-label">Specialty *</label>
+                                    <input type="text" class="form-control" id="specialty" required 
+                                           title="Enter medical specialty">
+                                    <div class="invalid-feedback">Please provide the specialty.</div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="specialistGradeDate" class="form-label">Date Promoted to Specialist Grade *</label>
+                                    <input type="date" class="form-control" id="specialistGradeDate" required 
+                                           title="Select the date of promotion to specialist grade">
+                                    <div class="invalid-feedback">Please provide the promotion date.</div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="preliminaryGradeDate" class="form-label">Preliminary Grade Date</label>
+                                    <input type="date" class="form-control" id="preliminaryGradeDate" 
+                                           title="Select preliminary grade date if applicable">
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="gradeIIDate" class="form-label">Grade II Date</label>
+                                    <input type="date" class="form-control" id="gradeIIDate" 
+                                           title="Select Grade II date if applicable">
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="gradeIDate" class="form-label">Grade I Date</label>
+                                    <input type="date" class="form-control" id="gradeIDate" 
+                                           title="Select Grade I date if applicable">
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="transferType" class="form-label">Type of Transfer Order *</label>
+                                    <select class="form-select" id="transferType" required 
+                                            title="Select type of transfer order">
+                                        <option value="">Select Transfer Type</option>
+                                        <option value="Annual">Annual</option>
+                                        <option value="End Post">End Post</option>
+                                        <option value="Temporary">Temporary</option>
+                                        <option value="After LT">After LT</option>
+                                        <option value="After FT">After FT</option>
+                                        <option value="After NO pay">After NO pay</option>
+                                    </select>
+                                    <div class="invalid-feedback">Please select a transfer type.</div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="transferOrder" class="form-label">Ministry Letter Number of Transfer Order</label>
+                                    <input type="text" class="form-control" id="transferOrder" 
+                                           title="Enter ministry letter number for transfer order">
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Permanent Resident Address</label>
+                                <textarea class="form-control" id="address" rows="2" 
+                                          title="Enter permanent residential address"></textarea>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="landPhone" class="form-label">Land Phone</label>
+                                    <input type="tel" class="form-control" id="landPhone" 
+                                           title="Enter landline phone number">
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="mobile" class="form-label">Mobile Number *</label>
+                                    <input type="tel" class="form-control" id="mobile" required 
+                                           pattern="^[0-9]{10}$"
+                                           title="Enter 10-digit mobile number">
+                                    <div class="invalid-feedback">Please provide a valid mobile number.</div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="email" class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="email" 
+                                           title="Enter valid email address">
+                                    <div class="invalid-feedback">Please provide a valid email address.</div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="reportingDate" class="form-label">Date of Reporting *</label>
+                                    <input type="date" class="form-control" id="reportingDate" required 
+                                           title="Select date of reporting">
+                                    <div class="invalid-feedback">Please provide the reporting date.</div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="postAssigned" class="form-label">Unit/Ward and Post Assigned *</label>
+                                    <input type="text" class="form-control" id="postAssigned" required 
+                                           title="Enter unit/ward and assigned post">
+                                    <div class="invalid-feedback">Please provide the assigned post.</div>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary" title="Submit the specialist information form">
+                                <i class="fas fa-save me-1" aria-hidden="true"></i> Submit Information
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Monthly Update Section -->
+            <section class="tab-pane fade" id="monthly-update" role="tabpanel" aria-labelledby="update-tab">
+                <div class="card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-sync me-2" aria-hidden="true"></i>Monthly Status Update</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <label for="month-select" class="input-group-text">Select Month</label>
+                                    <select class="form-select" id="month-select" 
+                                            title="Choose the month for status update" aria-describedby="month-help">
+                                        <option value="January">January</option>
+                                        <option value="February">February</option>
+                                        <option value="March">March</option>
+                                        <option value="April">April</option>
+                                        <option value="May">May</option>
+                                        <option value="June">June</option>
+                                        <option value="July">July</option>
+                                        <option value="August">August</option>
+                                        <option value="September" selected>September</option>
+                                        <option value="October">October</option>
+                                        <option value="November">November</option>
+                                        <option value="December">December</option>
+                                    </select>
+                                </div>
+                                <div id="month-help" class="form-text">Select the month you want to update</div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <label for="year-select" class="input-group-text">Select Year</label>
+                                    <select class="form-select" id="year-select" 
+                                            title="Choose the year for status update" aria-describedby="year-help">
+                                        <option value="2023">2023</option>
+                                        <option value="2024">2024</option>
+                                        <option value="2025" selected>2025</option>
+                                        <option value="2026">2026</option>
+                                    </select>
+                                </div>
+                                <div id="year-help" class="form-text">Select the year you want to update</div>
                             </div>
                         </div>
                         
-                        <div class="form-section">
-                            <div class="form-section-title">Professional Information</div>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="spec-specialty" class="required-field">Specialty</label>
-                                    <select id="spec-specialty" name="specialty" required>
-                                        <option value="">Select Specialty</option>
-                                        <option value="Cardiology">Cardiology</option>
-                                        <option value="Neurology">Neurology</option>
-                                        <option value="Orthopedic Surgery">Orthopedic Surgery</option>
-                                        <option value="Pediatrics">Pediatrics</option>
-                                        <option value="Internal Medicine">Internal Medicine</option>
-                                        <option value="Surgery">Surgery</option>
-                                        <option value="Obstetrics & Gynecology">Obstetrics & Gynecology</option>
-                                        <option value="Psychiatry">Psychiatry</option>
-                                        <option value="Radiology">Radiology</option>
-                                        <option value="Anesthesiology">Anesthesiology</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="spec-grade" class="required-field">Current Grade</label>
-                                    <select id="spec-grade" name="grade" required>
-                                        <option value="">Select Grade</option>
-                                        <option value="Consultant">Consultant</option>
-                                        <option value="Senior Registrar">Senior Registrar</option>
-                                        <option value="Registrar">Registrar</option>
-                                        <option value="Senior House Officer">Senior House Officer</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="spec-appointment-date" class="required-field">Appointment Date</label>
-                                    <input type="date" id="spec-appointment-date" name="appointmentDate" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="spec-transfer-order">Transfer Order No</label>
-                                    <input type="text" id="spec-transfer-order" name="transferOrder">
-                                    <div class="input-hint">If applicable</div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="spec-current-hospital" class="required-field">Current Hospital/Institution</label>
-                                <select id="spec-current-hospital" name="currentHospital" required>
-                                    <option value="">Select Hospital</option>
-                                    <option value="Hospital A">Hospital A</option>
-                                    <option value="Hospital B">Hospital B</option>
-                                    <option value="Hospital C">Hospital C</option>
-                                    <option value="Teaching Hospital Colombo">Teaching Hospital Colombo</option>
-                                    <option value="Teaching Hospital Kandy">Teaching Hospital Kandy</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <button type="submit" class="btn">
-                            <i class="fas fa-paper-plane" style="margin-right: 8px;"></i> Submit Specialist Information
-                        </button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Form 2: General Data Sheet -->
-            <div id="form2" class="section">
-                <div class="card">
-                    <div class="form-header">
-                        <h2><i class="fas fa-hospital" style="margin-right: 10px;"></i>Form 2 - Standard General Data Sheet</h2>
-                    </div>
-                    <div id="form2-alert" class="alert alert-success hidden">
-                        <i class="fas fa-check-circle" style="margin-right: 10px;"></i>
-                        <span id="form2-alert-text"></span>
-                    </div>
-                    <form id="general-data-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="institution-name" class="required-field">Institution Name</label>
-                                <input type="text" id="institution-name" name="institutionName" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="institution-type" class="required-field">Institution Type</label>
-                                <select id="institution-type" name="institutionType" required>
-                                    <option value="">Select Type</option>
-                                    <option value="Teaching Hospital">Teaching Hospital</option>
-                                    <option value="District General Hospital">District General Hospital</option>
-                                    <option value="Base Hospital">Base Hospital</option>
-                                    <option value="Specialized Hospital">Specialized Hospital</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="bed-strength" class="required-field">Bed Strength</label>
-                                <input type="number" id="bed-strength" name="bedStrength" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="total-consultants" class="required-field">Total Consultant Posts</label>
-                                <input type="number" id="total-consultants" name="totalConsultants" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="filled-posts" class="required-field">Filled Posts</label>
-                                <input type="number" id="filled-posts" name="filledPosts" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="vacant-posts-form2" class="required-field">Vacant Posts</label>
-                                <input type="number" id="vacant-posts-form2" name="vacantPosts" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="specialty-breakdown">Specialty Breakdown</label>
-                            <textarea id="specialty-breakdown" name="specialtyBreakdown" rows="4" placeholder="List specialties and their post distribution..."></textarea>
-                            <div class="input-hint">Example: Cardiology - 3 posts, Neurology - 2 posts</div>
-                        </div>
-                        <button type="submit" class="btn">
-                            <i class="fas fa-paper-plane" style="margin-right: 8px;"></i> Submit General Data
-                        </button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Form 3: Training & Transfers -->
-            <div id="form3" class="section">
-                <div class="card">
-                    <div class="form-header">
-                        <h2><i class="fas fa-exchange-alt" style="margin-right: 10px;"></i>Form 3 - Training & Transfers</h2>
-                    </div>
-                    <div id="form3-alert" class="alert alert-success hidden">
-                        <i class="fas fa-check-circle" style="margin-right: 10px;"></i>
-                        <span id="form3-alert-text"></span>
-                    </div>
-                    <form id="training-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="officer-name-training" class="required-field">Officer Name</label>
-                                <input type="text" id="officer-name-training" name="officerName" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="training-type" class="required-field">Training/Transfer Type</label>
-                                <select id="training-type" name="trainingType" required>
-                                    <option value="">Select Type</option>
-                                    <option value="Annual Training">Annual Training</option>
-                                    <option value="Temporary Transfer">Temporary Transfer</option>
-                                    <option value="Foreign Training">Foreign Training</option>
-                                    <option value="Permanent Transfer">Permanent Transfer</option>
-                                    <option value="Study Leave">Study Leave</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="from-institution" class="required-field">From Institution</label>
-                                <select id="from-institution" name="fromInstitution" required>
-                                    <option value="">Select Institution</option>
-                                    <option value="Hospital A">Hospital A</option>
-                                    <option value="Hospital B">Hospital B</option>
-                                    <option value="Hospital C">Hospital C</option>
-                                    <option value="Teaching Hospital Colombo">Teaching Hospital Colombo</option>
-                                    <option value="Teaching Hospital Kandy">Teaching Hospital Kandy</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="to-institution" class="required-field">To Institution</label>
-                                <input type="text" id="to-institution" name="toInstitution" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="start-date" class="required-field">Start Date</label>
-                                <input type="date" id="start-date" name="startDate" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="end-date">Expected End Date</label>
-                                <input type="date" id="end-date" name="endDate">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="training-purpose">Purpose/Description</label>
-                            <textarea id="training-purpose" name="purpose" rows="3" placeholder="Describe the purpose of training or transfer..."></textarea>
-                        </div>
-                        <button type="submit" class="btn">
-                            <i class="fas fa-paper-plane" style="margin-right: 8px;"></i> Submit Training/Transfer Record
-                        </button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Monthly Updates Section -->
-            <div id="monthly-updates" class="section">
-                <div class="card">
-                    <div class="form-header">
-                        <h2><i class="fas fa-calendar-alt" style="margin-right: 10px;"></i>Monthly Status Updates</h2>
-                    </div>
-                    <div id="monthly-alert" class="alert alert-success hidden">
-                        <i class="fas fa-check-circle" style="margin-right: 10px;"></i>
-                        <span id="monthly-alert-text"></span>
-                    </div>
-                    <form id="monthly-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="update-officer" class="required-field">Select Officer</label>
-                                <select id="update-officer" name="officerId" required>
-                                    <option value="">Select Officer</option>
-                                    <!-- Options populated dynamically -->
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="update-month" class="required-field">Month</label>
-                                <input type="month" id="update-month" name="month" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="status-update" class="required-field">Current Status</label>
-                                <select id="status-update" name="status" required>
-                                    <option value="">Select Status</option>
-                                    <option value="Available">🟢 Available</option>
-                                    <option value="Transferred">🟡 Transferred</option>
-                                    <option value="Temporary Released">🔴 Temporary Released</option>
-                                    <option value="On Leave">🔵 On Leave</option>
-                                    <option value="Training">🟣 On Training</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="current-location">Current Location</label>
-                                <input type="text" id="current-location" name="currentLocation">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="update-remarks">Remarks</label>
-                            <textarea id="update-remarks" name="remarks" rows="3" placeholder="Additional notes or comments..."></textarea>
-                        </div>
-                        <button type="submit" class="btn">
-                            <i class="fas fa-sync-alt" style="margin-right: 8px;"></i> Update Status
-                        </button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Reports Section -->
-            <div id="reports" class="section">
-                <div class="card">
-                    <div class="form-header">
-                        <h2><i class="fas fa-file-alt" style="margin-right: 10px;"></i>Reports & Analytics</h2>
-                    </div>
-                    <div class="table-actions">
-                        <input type="text" class="search-box" placeholder="Search reports...">
-                        <select class="filter-select">
-                            <option>All Specialties</option>
-                            <option>Cardiology</option>
-                            <option>Neurology</option>
-                            <option>Pediatrics</option>
-                        </select>
-                        <select class="filter-select">
-                            <option>All Hospitals</option>
-                            <option>Hospital A</option>
-                            <option>Hospital B</option>
-                            <option>Hospital C</option>
-                        </select>
-                    </div>
-                    <div class="form-row">
-                        <button class="btn" onclick="generateReport('specialists')">
-                            <i class="fas fa-user-md" style="margin-right: 8px;"></i> Specialist Summary
-                        </button>
-                        <button class="btn" onclick="generateReport('vacancies')">
-                            <i class="fas fa-bed" style="margin-right: 8px;"></i> Vacancy Report
-                        </button>
-                        <button class="btn" onclick="generateReport('transfers')">
-                            <i class="fas fa-exchange-alt" style="margin-right: 8px;"></i> Transfer History
-                        </button>
-                    </div>
-                    <div id="report-content">
-                        <div class="table-container">
-                            <table>
-                                <thead>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered" role="table" 
+                                   aria-label="Monthly status update table">
+                                <caption class="sr-only">Table showing specialist status updates by month and year</caption>
+                                <thead class="table-dark">
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Specialty</th>
-                                        <th>Institution</th>
-                                        <th>Status</th>
-                                        <th>Last Updated</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Specialty</th>
+                                        <th scope="col">Current Unit</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody id="report-table-body">
+                                <tbody id="status-table-body">
                                     <tr>
-                                        <td colspan="5" class="loading">Select a report type to view data</td>
+                                        <td colspan="5" class="text-center">Loading data...</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <div class="pagination">
-                            <button class="pagination-btn">&laquo;</button>
-                            <button class="pagination-btn active">1</button>
-                            <button class="pagination-btn">2</button>
-                            <button class="pagination-btn">3</button>
-                            <button class="pagination-btn">&raquo;</button>
+                        
+                        <div class="mt-3">
+                            <h3>Status Color Codes:</h3>
+                            <div class="d-flex flex-wrap gap-2" role="group" aria-label="Status indicators">
+                                <span class="badge status-available">Available</span>
+                                <span class="badge status-transfer">Transferred</span>
+                                <span class="badge status-retire">Retired/Resigned</span>
+                                <span class="badge status-maternity">Maternity Leave</span>
+                                <span class="badge status-nopay">No Pay Leave</span>
+                                <span class="badge status-pgim">Release to PGIM</span>
+                                <span class="badge status-vacant">Vacant</span>
+                                <span class="badge status-temp-attach">Temp. Attachment</span>
+                                <span class="badge status-temp-released">Temp. Released</span>
+                                <span class="badge status-vacation">Vacation of Post</span>
+                                <span class="badge status-paidleave">Paid Leave</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
+
+            <!-- Dashboard Section -->
+            <section class="tab-pane fade" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+                <div class="card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-chart-bar me-2" aria-hidden="true"></i>Specialist Distribution Dashboard</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="highlight-vacancies" checked
+                                           title="Toggle highlighting of vacant posts">
+                                    <label class="form-check-label" for="highlight-vacancies">
+                                        Highlight Vacant Posts in Red
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <button class="btn btn-sm btn-outline-primary" id="refresh-dashboard"
+                                        title="Refresh dashboard data">
+                                    <i class="fas fa-sync-alt me-1" aria-hidden="true"></i>Refresh Data
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover" role="table" 
+                                   aria-label="Specialist distribution dashboard">
+                                <caption class="sr-only">Table showing distribution of specialists across units and wards</caption>
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col">Ward/Unit</th>
+                                        <th scope="col">Specialty</th>
+                                        <th scope="col">Consultant Name</th>
+                                        <th scope="col">NIC</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Post Category</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="dashboard-table-body">
+                                    <tr>
+                                        <td colspan="6" class="text-center">Loading data...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             <!-- Feedback Section -->
-            <div id="feedback" class="section">
+            <section class="tab-pane fade" id="feedback" role="tabpanel" aria-labelledby="feedback-tab">
                 <div class="card">
-                    <div class="form-header">
-                        <h2><i class="fas fa-comments" style="margin-right: 10px;"></i>Feedback & Support</h2>
+                    <div class="card-header">
+                        <h2><i class="fas fa-comment me-2" aria-hidden="true"></i>Provide Feedback</h2>
                     </div>
-                    <div id="feedback-alert" class="alert alert-success hidden">
-                        <i class="fas fa-check-circle" style="margin-right: 10px;"></i>
-                        <span id="feedback-alert-text"></span>
-                    </div>
-                    <form id="feedback-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="feedback-type" class="required-field">Feedback Type</label>
-                                <select id="feedback-type" name="feedbackType" required>
+                    <div class="card-body">
+                        <form id="feedback-form" novalidate>
+                            <div class="mb-3">
+                                <label for="institution" class="form-label">Institution Name *</label>
+                                <input type="text" class="form-control" id="institution" required 
+                                       title="Enter your institution name">
+                                <div class="invalid-feedback">Please provide your institution name.</div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="feedbackType" class="form-label">Feedback Type *</label>
+                                <select class="form-select" id="feedbackType" required 
+                                        title="Select the type of feedback you want to provide">
                                     <option value="">Select Type</option>
-                                    <option value="Bug Report">Bug Report</option>
-                                    <option value="Feature Request">Feature Request</option>
-                                    <option value="General Feedback">General Feedback</option>
-                                    <option value="Support Request">Support Request</option>
+                                    <option value="Suggestion">Suggestion</option>
+                                    <option value="Issue">Issue/Bug Report</option>
+                                    <option value="Question">Question</option>
+                                    <option value="Compliment">Compliment</option>
                                 </select>
+                                <div class="invalid-feedback">Please select a feedback type.</div>
                             </div>
-                            <div class="form-group">
-                                <label for="feedback-priority" class="required-field">Priority</label>
-                                <select id="feedback-priority" name="priority" required>
-                                    <option value="">Select Priority</option>
-                                    <option value="Low">Low</option>
-                                    <option value="Medium">Medium</option>
-                                    <option value="High">High</option>
-                                    <option value="Critical">Critical</option>
-                                </select>
+                            
+                            <div class="mb-3">
+                                <label for="feedbackMessage" class="form-label">Your Feedback *</label>
+                                <textarea class="form-control" id="feedbackMessage" rows="4" required 
+                                          title="Enter your detailed feedback message"></textarea>
+                                <div class="invalid-feedback">Please provide your feedback message.</div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="feedback-subject" class="required-field">Subject</label>
-                            <input type="text" id="feedback-subject" name="subject" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="feedback-message" class="required-field">Message</label>
-                            <textarea id="feedback-message" name="message" rows="6" required placeholder="Please describe your feedback or issue in detail..."></textarea>
-                        </div>
-                        <button type="submit" class="btn">
-                            <i class="fas fa-paper-plane" style="margin-right: 8px;"></i> Submit Feedback
-                        </button>
-                    </form>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="contactName" class="form-label">Your Name</label>
+                                    <input type="text" class="form-control" id="contactName" 
+                                           title="Enter your name (optional)">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="contactEmail" class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="contactEmail" 
+                                           title="Enter your email address (optional)">
+                                    <div class="invalid-feedback">Please provide a valid email address.</div>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary" title="Submit your feedback">
+                                <i class="fas fa-paper-plane me-1" aria-hidden="true"></i> Submit Feedback
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="mt-5" role="contentinfo">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Ministry of Health Sri Lanka</h3>
+                    <p>National Surveillance System for Specialist Grade Medical Officers</p>
+                    <p>Email: <a href="mailto:hrmismoh@gmail.com">hrmismoh@gmail.com</a>, <a href="mailto:meghasl@gmail.com">meghasl@gmail.com</a></p>
+                    <p>Phone: <a href="tel:+94112699145">0112699145</a></p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>&copy; 2025 Ministry of Health Sri Lanka. All rights reserved.</p>
+                    <p>HRMIS Unit</p>
                 </div>
             </div>
         </div>
-    </div> 
-  <script>
-// Global variables
-    let currentUser = null;
-    let userRole = null;
-    let appData = {
-        specialists: [],
-        institutions: [],
-        transfers: [],
-        monthlyUpdates: []
-    };
+    </footer>
 
-    // Configuration - Your Google Apps Script Web App URL
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzJ6FjR_XnsJ5WtD6BSaHN_tLVQYyI4Zzn7l6KB90FxbpInfZ2pExQLGr5yF-397x0Xyw/exec';
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // ================================
+        // Global State
+        // ================================
+        let currentUser = null;
+        let userRole = null;
+        let appData = {
+            specialists: [],
+            institutions: [],
+            transfers: [],
+            monthlyUpdates: []
+        };
 
-    // Initialize the application
-    document.addEventListener('DOMContentLoaded', function() {
-        initializeApp();
-    });
+        // ✅ Replace this with your deployed Apps Script URL
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbypHFbJfXZm-ODpIHra8a1jg_jAuJpIEY5MyNRtueWJnbmX66SXxICWBktzbNA0XBf7sg/exec";
 
-    function initializeApp() {
-        // Check if user is already logged in
-        const savedUser = sessionStorage.getItem('currentUser');
-        if (savedUser) {
-            try {
-                const userData = JSON.parse(savedUser);
-                currentUser = userData.username;
-                userRole = userData.role;
-                showMainApp();
-            } catch (e) {
-                console.log('Invalid saved user data');
-                sessionStorage.removeItem('currentUser');
+        // Debug mode
+        let mockDataEnabled = false;
+
+        // ================================
+        // Accessibility and Form Validation
+        // ================================
+        function initializeAccessibility() {
+            // Add ARIA live regions for dynamic content
+            const liveRegion = document.createElement('div');
+            liveRegion.setAttribute('aria-live', 'polite');
+            liveRegion.setAttribute('aria-atomic', 'true');
+            liveRegion.className = 'sr-only';
+            liveRegion.id = 'live-region';
+            document.body.appendChild(liveRegion);
+
+            // Initialize form validation
+            initializeFormValidation();
+            
+            // Set focus management for tabs
+            initializeTabFocusManagement();
+            
+            // Initialize keyboard navigation
+            initializeKeyboardNavigation();
+        }
+
+        function initializeFormValidation() {
+            const forms = document.querySelectorAll('form[novalidate]');
+            
+            forms.forEach(form => {
+                form.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    
+                    if (!form.checkValidity()) {
+                        // Find first invalid field and focus it
+                        const firstInvalidField = form.querySelector(':invalid');
+                        if (firstInvalidField) {
+                            firstInvalidField.focus();
+                            announceToScreenReader(`Please correct the errors in the form. ${firstInvalidField.labels[0]?.textContent || 'First field'} is invalid.`);
+                        }
+                    } else {
+                        // Process valid form
+                        handleFormSubmission(form);
+                    }
+                    
+                    form.classList.add('was-validated');
+                });
+            });
+        }
+
+        function initializeTabFocusManagement() {
+            const tabButtons = document.querySelectorAll('[data-bs-toggle="tab"]');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('shown.bs.tab', function(event) {
+                    const targetId = event.target.getAttribute('data-bs-target');
+                    const targetPanel = document.querySelector(targetId);
+                    
+                    if (targetPanel) {
+                        // Focus the first focusable element in the new panel
+                        const firstFocusable = targetPanel.querySelector('input, select, textarea, button, [tabindex]:not([tabindex="-1"])');
+                        if (firstFocusable) {
+                            setTimeout(() => firstFocusable.focus(), 100);
+                        }
+                        
+                        announceToScreenReader(`Switched to ${event.target.textContent.trim()} section`);
+                    }
+                });
+            });
+        }
+
+        function initializeKeyboardNavigation() {
+            // Add keyboard support for custom elements
+            document.addEventListener('keydown', function(event) {
+                // Escape key to close modals or return focus
+                if (event.key === 'Escape') {
+                    const activeModal = document.querySelector('.modal.show');
+                    if (activeModal) {
+                        const modalInstance = bootstrap.Modal.getInstance(activeModal);
+                        if (modalInstance) {
+                            modalInstance.hide();
+                        }
+                    }
+                }
+                
+                // Arrow keys for tab navigation
+                if (event.target.getAttribute('role') === 'tab') {
+                    handleTabKeyNavigation(event);
+                }
+            });
+        }
+
+        function handleTabKeyNavigation(event) {
+            const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+            const currentIndex = tabs.indexOf(event.target);
+            let nextIndex;
+            
+            switch (event.key) {
+                case 'ArrowLeft':
+                case 'ArrowUp':
+                    nextIndex = currentIndex > 0 ? currentIndex - 1 : tabs.length - 1;
+                    break;
+                case 'ArrowRight':
+                case 'ArrowDown':
+                    nextIndex = currentIndex < tabs.length - 1 ? currentIndex + 1 : 0;
+                    break;
+                case 'Home':
+                    nextIndex = 0;
+                    break;
+                case 'End':
+                    nextIndex = tabs.length - 1;
+                    break;
+                default:
+                    return;
+            }
+            
+            event.preventDefault();
+            tabs[nextIndex].click();
+            tabs[nextIndex].focus();
+        }
+
+        function announceToScreenReader(message) {
+            const liveRegion = document.getElementById('live-region');
+            if (liveRegion) {
+                liveRegion.textContent = message;
+                setTimeout(() => {
+                    liveRegion.textContent = '';
+                }, 1000);
             }
         }
 
-        // Bind event listeners
-        document.getElementById('login-form').addEventListener('submit', handleLogin);
-        document.getElementById('specialist-form').addEventListener('submit', handleSpecialistSubmit);
-        document.getElementById('general-data-form').addEventListener('submit', handleGeneralDataSubmit);
-        document.getElementById('training-form').addEventListener('submit', handleTrainingSubmit);
-        document.getElementById('monthly-form').addEventListener('submit', handleMonthlyUpdate);
-        document.getElementById('feedback-form').addEventListener('submit', handleFeedbackSubmit);
-    }
+        // ================================
+        // Robust Fetch with Timeout & CORS
+        // ================================
+        function robustFetch(url, options = {}) {
+            if (mockDataEnabled) {
+                return Promise.reject(new Error("Mock mode enabled"));
+            }
 
-    // Fixed API request function
-    async function makeApiRequest(data, isGet = false) {
-        try {
-            let url = SCRIPT_URL;
-            let options = {
-                method: 'POST',
+            const timeout = options.timeout || 10000;
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), timeout);
+
+            const fetchOptions = {
+                ...options,
+                signal: controller.signal,
+                mode: "cors",
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
+                    "Content-Type": "application/json",
+                    ...options.headers
                 }
             };
 
-            if (isGet) {
-                // For GET requests, append parameters to URL
-                const params = new URLSearchParams(data);
-                url += '?' + params.toString();
-                options.method = 'GET';
-                delete options.headers;
-                delete options.body;
-            } else {
-                // For POST requests, use URLSearchParams to avoid CORS preflight
-                const formData = new URLSearchParams();
-                Object.keys(data).forEach(key => {
-                    if (typeof data[key] === 'object') {
-                        formData.append(key, JSON.stringify(data[key]));
-                    } else {
-                        formData.append(key, data[key]);
+            return fetch(url, fetchOptions)
+                .then(response => {
+                    clearTimeout(timeoutId);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
                     }
+                    return response.json();
+                })
+                .catch(error => {
+                    clearTimeout(timeoutId);
+                    console.error('Fetch error:', error);
+                    throw error;
                 });
-                
-                options.body = formData;
-            }
-
-            console.log('Making request to:', url);
-            console.log('Request data:', data);
-
-            const response = await fetch(url, options);
-            
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            
-            const result = await response.text();
-            
-            // Try to parse as JSON, fallback to treating as success message
-            try {
-                return JSON.parse(result);
-            } catch (parseError) {
-                console.log('Response is not JSON, treating as success:', result);
-                return { 
-                    success: true, 
-                    message: 'Operation completed successfully',
-                    rawResponse: result 
-                };
-            }
-            
-        } catch (error) {
-            console.error('API Request Error:', error);
-            
-            // For demo purposes, return mock data for certain operations
-            if (data.action === 'login') {
-                return getMockResponse(data.action, data);
-            }
-            
-            throw error;
         }
-    }
 
-    // Enhanced mock data for testing
-    function getMockResponse(action, data) {
-        switch(action) {
-            case 'login':
-                if ((data.username === 'admin' && data.password === 'admin123') ||
-                    (data.username === 'doctor' && data.password === 'doctor123') ||
-                    (data.username === 'admin' && data.password === 'admin')) {
-                    return { 
-                        success: true, 
-                        role: data.username === 'admin' ? 'Admin' : 'Doctor', 
-                        message: 'Login successful' 
-                    };
+        // ================================
+        // Form Submission Handlers
+        // ================================
+        function handleFormSubmission(form) {
+            const formId = form.id;
+            
+            switch (formId) {
+                case 'specialist-form':
+                    handleSpecialistFormSubmission(form);
+                    break;
+                case 'feedback-form':
+                    handleFeedbackFormSubmission(form);
+                    break;
+                default:
+                    console.warn('Unknown form:', formId);
+            }
+        }
+
+        function handleSpecialistFormSubmission(form) {
+            const formData = new FormData(form);
+            const specialistData = Object.fromEntries(formData.entries());
+            
+            // Add action for backend
+            specialistData.action = 'addSpecialist';
+            
+            showLoadingState('Submitting specialist information...');
+            
+            robustFetch(SCRIPT_URL, {
+                method: 'POST',
+                body: JSON.stringify(specialistData),
+                timeout: 15000
+            })
+            .then(data => {
+                hideLoadingState();
+                if (data.success) {
+                    showSuccess('Specialist information submitted successfully!');
+                    form.reset();
+                    form.classList.remove('was-validated');
+                    updateDashboardCounts();
                 } else {
-                    return { success: false, message: 'Invalid credentials' };
+                    showError(data.message || 'Failed to submit specialist information.');
                 }
-            
-            case 'read':
-                return {
-                    success: true,
-                    data: [
-                        {
-                            id: 'ID_001',
-                            name: 'Dr. John Silva',
-                            specialty: 'Cardiology',
-                            currentHospital: 'Teaching Hospital Colombo',
-                            status: 'Available',
-                            submittedDate: new Date().toISOString()
-                        },
-                        {
-                            id: 'ID_002',
-                            name: 'Dr. Mary Fernando',
-                            specialty: 'Neurology',
-                            currentHospital: 'Hospital A',
-                            status: 'Transferred',
-                            submittedDate: new Date().toISOString()
-                        }
-                    ]
-                };
-            
-            default:
-                return { success: true, message: 'Operation completed successfully' };
-        }
-    }
-
-    // Authentication functions
-    async function handleLogin(e) {
-        e.preventDefault();
-        const username = document.getElementById('username').value.trim();
-        const password = document.getElementById('password').value.trim();
-
-        if (!username || !password) {
-            showAlert('login-alert', 'Please enter both username and password', 'error');
-            return;
-        }
-
-        // Show loading
-        const submitBtn = e.target.querySelector('button[type="submit"]');
-        const originalText = submitBtn.innerHTML;
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 8px;"></i> Authenticating...';
-        submitBtn.disabled = true;
-
-        try {
-            const result = await makeApiRequest({
-                action: 'login',
-                username: username,
-                password: password
+            })
+            .catch(error => {
+                hideLoadingState();
+                console.error('Submission error:', error);
+                showError('Unable to submit information. Please check your connection and try again.');
             });
-
-            console.log('Login result:', result);
-
-            if (result.success) {
-                currentUser = username;
-                userRole = result.role || 'User';
-                
-                // Save session
-                sessionStorage.setItem('currentUser', JSON.stringify({
-                    username: currentUser,
-                    role: userRole
-                }));
-
-                showMainApp();
-                hideAlert('login-alert');
-            } else {
-                showAlert('login-alert', result.message || 'Invalid username or password', 'error');
-            }
-        } catch (error) {
-            console.error('Login error:', error);
-            showAlert('login-alert', 'Network error. Please check your connection and try again.', 'error');
-        } finally {
-            // Re-enable form
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
         }
-    }
 
-    function showMainApp() {
-        document.getElementById('login-section').classList.remove('active');
-        document.getElementById('main-app').classList.add('active');
-        
-        // Update user info display
-        document.getElementById('user-name').textContent = currentUser;
-        document.getElementById('user-role').textContent = userRole;
-        
-        // Load initial data
-        loadDashboardData();
-        populateOfficerDropdown();
-    }
-
-    function logout() {
-        sessionStorage.removeItem('currentUser');
-        currentUser = null;
-        userRole = null;
-        
-        document.getElementById('main-app').classList.remove('active');
-        document.getElementById('login-section').classList.add('active');
-        
-        // Reset forms
-        document.getElementById('login-form').reset();
-        hideAllSections();
-        showSection('dashboard');
-        
-        // Clear any alerts
-        hideAllAlerts();
-    }
-
-    // Navigation functions
-    function showSection(sectionId) {
-        hideAllSections();
-        
-        const targetSection = document.getElementById(sectionId);
-        if (targetSection) {
-            targetSection.classList.add('active');
+        function handleFeedbackFormSubmission(form) {
+            const formData = new FormData(form);
+            const feedbackData = Object.fromEntries(formData.entries());
+            
+            feedbackData.action = 'submitFeedback';
+            feedbackData.timestamp = new Date().toISOString();
+            
+            showLoadingState('Submitting feedback...');
+            
+            robustFetch(SCRIPT_URL, {
+                method: 'POST',
+                body: JSON.stringify(feedbackData),
+                timeout: 10000
+            })
+            .then(data => {
+                hideLoadingState();
+                if (data.success) {
+                    showSuccess('Thank you for your feedback! We appreciate your input.');
+                    form.reset();
+                    form.classList.remove('was-validated');
+                } else {
+                    showError(data.message || 'Failed to submit feedback.');
+                }
+            })
+            .catch(error => {
+                hideLoadingState();
+                console.error('Feedback error:', error);
+                showError('Unable to submit feedback. Please try again later.');
+            });
         }
-        
-        // Update navigation
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.classList.remove('active');
-        });
-        
-        const navItems = document.querySelectorAll('.nav-item');
-        for (let item of navItems) {
-            const onclickAttr = item.getAttribute('onclick');
-            if (onclickAttr && onclickAttr.includes(sectionId)) {
-                item.classList.add('active');
-                break;
-            }
+
+        // ================================
+        // Dashboard Functions
+        // ================================
+        function loadDashboardData() {
+            showLoadingState('Loading dashboard data...');
+            
+            robustFetch(`${SCRIPT_URL}?action=getDashboardData&timestamp=${Date.now()}`, {
+                timeout: 15000
+            })
+            .then(data => {
+                hideLoadingState();
+                if (data.success) {
+                    appData = data.appData || appData;
+                    renderDashboard();
+                    updateDashboardCounts();
+                    announceToScreenReader('Dashboard data loaded successfully');
+                } else {
+                    showError(data.message || 'Failed to load dashboard data.');
+                    loadMockData(); // Fallback to mock data
+                }
+            })
+            .catch(error => {
+                hideLoadingState();
+                console.error('Dashboard Error:', error);
+                showError('Unable to load dashboard data. Loading sample data.');
+                loadMockData();
+            });
         }
-        
-        if (sectionId === 'reports') {
-            loadReportsData();
-        } else if (sectionId === 'monthly-updates') {
-            populateOfficerDropdown();
-        }
-    }
 
-    function hideAllSections() {
-        document.querySelectorAll('#main-app .section').forEach(section => {
-            section.classList.remove('active');
-        });
-    }
-
-    // Enhanced data loading functions
-    async function loadDashboardData() {
-        try {
-            const result = await makeApiRequest({
-                action: 'read',
-                sheet: 'Specialists'
-            }, true);
-
-            console.log('Dashboard data result:', result);
-
-            if (result.success && result.data) {
-                document.getElementById('total-specialists').textContent = result.data.length;
-                
-                const activePosts = result.data.filter(spec => 
-                    spec.status !== 'Vacant' && spec.status !== 'Transferred'
-                ).length;
-                
-                document.getElementById('active-posts').textContent = activePosts;
-                document.getElementById('vacant-posts').textContent = result.data.length - activePosts;
-            } else {
-                // Set default values
-                document.getElementById('total-specialists').textContent = '0';
-                document.getElementById('active-posts').textContent = '0';
-                document.getElementById('vacant-posts').textContent = '0';
-            }
-        } catch (error) {
-            console.error('Error loading dashboard data:', error);
-            // Use mock data for demo
-            document.getElementById('total-specialists').textContent = '2';
-            document.getElementById('active-posts').textContent = '1';
-            document.getElementById('vacant-posts').textContent = '1';
-        }
-    }
-
-    async function populateOfficerDropdown() {
-        const dropdown = document.getElementById('update-officer');
-        if (!dropdown) return;
-        
-        dropdown.innerHTML = '<option value="">Select Officer</option>';
-        
-        try {
-            const result = await makeApiRequest({
-                action: 'read',
-                sheet: 'Specialists'
-            }, true);
-
-            if (result.success && result.data) {
-                result.data.forEach(officer => {
-                    if (userRole === 'Admin' || officer.currentHospital === userRole) {
-                        const option = document.createElement('option');
-                        option.value = officer.id || officer.name;
-                        option.textContent = `${officer.name} - ${officer.specialty}`;
-                        dropdown.appendChild(option);
+        function loadMockData() {
+            // Sample data for development/demo
+            appData = {
+                specialists: [
+                    {
+                        name: 'Dr. A.B.C. Silva',
+                        specialty: 'Cardiology',
+                        unit: 'Cardiology Ward',
+                        nic: '123456789V',
+                        status: 'Available',
+                        postCategory: 'Consultant'
+                    },
+                    {
+                        name: 'Dr. K.L.M. Perera',
+                        specialty: 'Neurology',
+                        unit: 'Neurology Ward',
+                        nic: '987654321V',
+                        status: 'Available',
+                        postCategory: 'Consultant'
                     }
-                });
-            }
-        } catch (error) {
-            console.error('Error loading officers:', error);
-            // Add sample data for demo
-            const sampleOptions = [
-                { value: 'dr-silva', text: 'Dr. John Silva - Cardiology' },
-                { value: 'dr-fernando', text: 'Dr. Mary Fernando - Neurology' }
-            ];
+                ],
+                institutions: ['General Hospital Colombo', 'Teaching Hospital Kandy'],
+                transfers: [],
+                monthlyUpdates: []
+            };
             
-            sampleOptions.forEach(sample => {
-                const option = document.createElement('option');
-                option.value = sample.value;
-                option.textContent = sample.text;
-                dropdown.appendChild(option);
-            });
-        }
-    }
-
-    // Enhanced form submission handlers
-    async function handleSpecialistSubmit(e) {
-        e.preventDefault();
-        
-        const submitBtn = e.target.querySelector('button[type="submit"]');
-        const originalText = submitBtn.innerHTML;
-        
-        try {
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 8px;"></i> Submitting...';
-            submitBtn.disabled = true;
-            
-            const formData = new FormData(e.target);
-            const data = {};
-            
-            // Convert FormData to regular object
-            for (let [key, value] of formData.entries()) {
-                data[key] = value;
-            }
-            
-            // Add metadata
-            data.submittedBy = currentUser;
-            data.submittedDate = new Date().toISOString();
-            data.hospital = data.currentHospital;
-            data.status = 'Active';
-
-            console.log('Submitting specialist data:', data);
-
-            const result = await makeApiRequest({
-                action: 'insert',
-                sheet: 'Specialists',
-                data: data
-            });
-
-            console.log('Specialist submission result:', result);
-
-            if (result.success) {
-                showAlert('form1-alert', 'Specialist information submitted successfully!', 'success');
-                e.target.reset();
-                loadDashboardData();
-            } else {
-                showAlert('form1-alert', result.message || 'Error submitting data. Please try again.', 'error');
-            }
-        } catch (error) {
-            console.error('Submission error:', error);
-            showAlert('form1-alert', 'Network error occurred. Data may have been saved. Please check and try again if needed.', 'error');
-        } finally {
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-        }
-    }
-
-    async function handleGeneralDataSubmit(e) {
-        e.preventDefault();
-        
-        const submitBtn = e.target.querySelector('button[type="submit"]');
-        const originalText = submitBtn.innerHTML;
-        
-        try {
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 8px;"></i> Submitting...';
-            submitBtn.disabled = true;
-            
-            const formData = new FormData(e.target);
-            const data = {};
-            
-            for (let [key, value] of formData.entries()) {
-                data[key] = value;
-            }
-            
-            data.submittedBy = currentUser;
-            data.submittedDate = new Date().toISOString();
-
-            console.log('Submitting general data:', data);
-
-            const result = await makeApiRequest({
-                action: 'insert',
-                sheet: 'GeneralData',
-                data: data
-            });
-
-            if (result.success) {
-                showAlert('form2-alert', 'General data submitted successfully!', 'success');
-                e.target.reset();
-            } else {
-                showAlert('form2-alert', result.message || 'Error submitting data. Please try again.', 'error');
-            }
-        } catch (error) {
-            console.error('Submission error:', error);
-            showAlert('form2-alert', 'Network error occurred. Data may have been saved. Please check and try again if needed.', 'error');
-        } finally {
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-        }
-    }
-
-    async function handleTrainingSubmit(e) {
-        e.preventDefault();
-        
-        const submitBtn = e.target.querySelector('button[type="submit"]');
-        const originalText = submitBtn.innerHTML;
-        
-        try {
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 8px;"></i> Submitting...';
-            submitBtn.disabled = true;
-            
-            const formData = new FormData(e.target);
-            const data = {};
-            
-            for (let [key, value] of formData.entries()) {
-                data[key] = value;
-            }
-            
-            data.submittedBy = currentUser;
-            data.submittedDate = new Date().toISOString();
-            data.status = 'Active';
-
-            console.log('Submitting training data:', data);
-
-            const result = await makeApiRequest({
-                action: 'insert',
-                sheet: 'TrainingTransfers',
-                data: data
-            });
-
-            if (result.success) {
-                showAlert('form3-alert', 'Training/Transfer record submitted successfully!', 'success');
-                e.target.reset();
-            } else {
-                showAlert('form3-alert', result.message || 'Error submitting data. Please try again.', 'error');
-            }
-        } catch (error) {
-            console.error('Submission error:', error);
-            showAlert('form3-alert', 'Network error occurred. Data may have been saved. Please check and try again if needed.', 'error');
-        } finally {
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-        }
-    }
-
-    async function handleMonthlyUpdate(e) {
-        e.preventDefault();
-        
-        const submitBtn = e.target.querySelector('button[type="submit"]');
-        const originalText = submitBtn.innerHTML;
-        
-        try {
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 8px;"></i> Updating...';
-            submitBtn.disabled = true;
-            
-            const formData = new FormData(e.target);
-            const data = {};
-            
-            for (let [key, value] of formData.entries()) {
-                data[key] = value;
-            }
-            
-            // Get officer name from dropdown text
-            const officerDropdown = document.getElementById('update-officer');
-            const selectedOption = officerDropdown.options[officerDropdown.selectedIndex];
-            if (selectedOption && selectedOption.text) {
-                data.officerName = selectedOption.text.split(' - ')[0];
-            }
-            
-            data.updatedBy = currentUser;
-            data.updateDate = new Date().toISOString();
-
-            console.log('Submitting monthly update:', data);
-
-            const result = await makeApiRequest({
-                action: 'insert',
-                sheet: 'MonthlyUpdates',
-                data: data
-            });
-
-            if (result.success) {
-                showAlert('monthly-alert', 'Monthly status updated successfully!', 'success');
-                e.target.reset();
-            } else {
-                showAlert('monthly-alert', result.message || 'Error updating status. Please try again.', 'error');
-            }
-        } catch (error) {
-            console.error('Submission error:', error);
-            showAlert('monthly-alert', 'Network error occurred. Data may have been saved. Please check and try again if needed.', 'error');
-        } finally {
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-        }
-    }
-
-    async function handleFeedbackSubmit(e) {
-        e.preventDefault();
-        
-        const submitBtn = e.target.querySelector('button[type="submit"]');
-        const originalText = submitBtn.innerHTML;
-        
-        try {
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 8px;"></i> Submitting...';
-            submitBtn.disabled = true;
-            
-            const formData = new FormData(e.target);
-            const data = {};
-            
-            for (let [key, value] of formData.entries()) {
-                data[key] = value;
-            }
-            
-            data.submittedBy = currentUser;
-            data.submittedDate = new Date().toISOString();
-            data.status = 'Open';
-
-            console.log('Submitting feedback:', data);
-
-            const result = await makeApiRequest({
-                action: 'insert',
-                sheet: 'Feedback',
-                data: data
-            });
-
-            if (result.success) {
-                showAlert('feedback-alert', 'Feedback submitted successfully! We will review and respond soon.', 'success');
-                e.target.reset();
-            } else {
-                showAlert('feedback-alert', result.message || 'Error submitting feedback. Please try again.', 'error');
-            }
-        } catch (error) {
-            console.error('Submission error:', error);
-            showAlert('feedback-alert', 'Network error occurred. Feedback may have been saved. Please check and try again if needed.', 'error');
-        } finally {
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-        }
-    }
-
-    // Reports functionality
-    async function generateReport(reportType) {
-        const tableBody = document.getElementById('report-table-body');
-        if (!tableBody) return;
-        
-        tableBody.innerHTML = '<tr><td colspan="5" class="loading"><i class="fas fa-spinner fa-spin" style="margin-right: 8px;"></i>Loading report data...</td></tr>';
-
-        let sheetName = '';
-        switch(reportType) {
-            case 'specialists':
-                sheetName = 'Specialists';
-                break;
-            case 'vacancies':
-                sheetName = 'Specialists';
-                break;
-            case 'transfers':
-                sheetName = 'TrainingTransfers';
-                break;
-            default:
-                sheetName = 'Specialists';
+            renderDashboard();
+            updateDashboardCounts();
         }
 
-        try {
-            const result = await makeApiRequest({
-                action: 'read',
-                sheet: sheetName
-            }, true);
-
-            if (result.success) {
-                displayReportData(result.data, reportType);
-            } else {
-                tableBody.innerHTML = '<tr><td colspan="5" style="color: var(--danger); text-align: center;">Error loading report data: ' + (result.message || 'Unknown error') + '</td></tr>';
+        function renderDashboard() {
+            const dashboardTableBody = document.getElementById('dashboard-table-body');
+            const statusTableBody = document.getElementById('status-table-body');
+            
+            if (dashboardTableBody) {
+                if (appData.specialists.length === 0) {
+                    dashboardTableBody.innerHTML = '<tr><td colspan="6" class="text-center">No specialists data available</td></tr>';
+                } else {
+                    dashboardTableBody.innerHTML = appData.specialists.map(specialist => `
+                        <tr class="${specialist.status === 'Vacant' ? 'table-danger' : ''}">
+                            <td>${specialist.unit || 'Not assigned'}</td>
+                            <td>${specialist.specialty || 'Not specified'}</td>
+                            <td>${specialist.name || 'Vacant'}</td>
+                            <td>${specialist.nic || '-'}</td>
+                            <td><span class="badge status-${specialist.status?.toLowerCase().replace(/\s+/g, '-') || 'vacant'}">${specialist.status || 'Vacant'}</span></td>
+                            <td>${specialist.postCategory || 'Not specified'}</td>
+                        </tr>
+                    `).join('');
+                }
             }
-        } catch (error) {
-            console.error('Error loading report:', error);
-            // Show sample data for demo
-            const sampleData = getMockResponse('read').data;
-            displayReportData(sampleData, reportType);
-        }
-    }
-
-    function displayReportData(data, reportType) {
-        const tableBody = document.getElementById('report-table-body');
-        if (!tableBody) return;
-        
-        tableBody.innerHTML = '';
-
-        if (!data || data.length === 0) {
-        tableBody.innerHTML = '<tr><td colspan="5" style="text-align: center;">No data available</td></tr>';
-        return;
-        }
-
-        data.forEach(item => {
-            const row = document.createElement('tr');
-            if (reportType === 'specialists') {
-                row.innerHTML = `
-                    <td>${escapeHtml(item.name || 'N/A')}</td>
-                    <td><span class="specialty-badge">${escapeHtml(item.specialty || 'N/A')}</span></td>
-                    <td>${escapeHtml(item.currentHospital || item.hospital || 'N/A')}</td>
-                    <td><span class="status-indicator status-${(item.status || 'Available').toLowerCase().replace(' ', '-')}"></span>${escapeHtml(item.status || 'Available')}</td>
-                    <td>${formatDate(item.submittedDate) || 'N/A'}</td>
-                `;
+            
+            if (statusTableBody) {
+                if (appData.specialists.length === 0) {
+                    statusTableBody.innerHTML = '<tr><td colspan="5" class="text-center">No data available for selected period</td></tr>';
+                } else {
+                    statusTableBody.innerHTML = appData.specialists.map((specialist, index) => `
+                        <tr>
+                            <td>${specialist.name || 'Unknown'}</td>
+                            <td>${specialist.specialty || 'Not specified'}</td>
+                            <td>${specialist.unit || 'Not assigned'}</td>
+                            <td><span class="badge status-${specialist.status?.toLowerCase().replace(/\s+/g, '-') || 'vacant'}">${specialist.status || 'Vacant'}</span></td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-primary" onclick="editSpecialistStatus(${index})" 
+                                        title="Edit status for ${specialist.name}">
+                                    <i class="fas fa-edit" aria-hidden="true"></i> Edit
+                                </button>
+                            </td>
+                        </tr>
+                    `).join('');
+                }
             }
-            tableBody.appendChild(row);
-        });
-    }
+        }
 
-    // Utility functions
-    function showAlert(elementId, message, type) {
-        const alertElement = document.getElementById(elementId);
-        const alertTextElement = document.getElementById(`${elementId}-text`);
-        
-        if (!alertElement || !alertTextElement) return;
-        
-        alertElement.classList.remove('alert-success', 'alert-error', 'alert-info');
-        alertElement.classList.add(`alert-${type}`);
-        alertTextElement.textContent = message;
-        alertElement.classList.remove('hidden');
-        
-        if (type === 'success') {
+        function updateDashboardCounts() {
+            const totalElement = document.getElementById('total-specialists');
+            const availableElement = document.getElementById('available-count');
+            const vacantElement = document.getElementById('vacant-count');
+            
+            if (totalElement) {
+                totalElement.textContent = appData.specialists.length;
+            }
+            
+            if (availableElement) {
+                const availableCount = appData.specialists.filter(s => s.status === 'Available').length;
+                availableElement.textContent = availableCount;
+            }
+            
+            if (vacantElement) {
+                const vacantCount = appData.specialists.filter(s => s.status === 'Vacant' || !s.name).length;
+                vacantElement.textContent = vacantCount;
+            }
+        }
+
+        function editSpecialistStatus(index) {
+            const specialist = appData.specialists[index];
+            if (!specialist) return;
+            
+            const newStatus = prompt(`Current status: ${specialist.status}\nEnter new status:`, specialist.status);
+            if (newStatus && newStatus !== specialist.status) {
+                specialist.status = newStatus;
+                renderDashboard();
+                updateDashboardCounts();
+                announceToScreenReader(`Status updated for ${specialist.name}`);
+            }
+        }
+
+        // ================================
+        // UI Helpers
+        // ================================
+        function showLoadingState(message = 'Loading...') {
+            const loadingDiv = document.createElement('div');
+            loadingDiv.id = 'loading-overlay';
+            loadingDiv.className = 'position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center';
+            loadingDiv.style.cssText = 'background: rgba(0,0,0,0.5); z-index: 9999;';
+            loadingDiv.innerHTML = `
+                <div class="bg-white p-4 rounded shadow text-center">
+                    <div class="spinner-border text-primary mb-2" role="status" aria-hidden="true"></div>
+                    <div>${message}</div>
+                </div>
+            `;
+            document.body.appendChild(loadingDiv);
+            announceToScreenReader(message);
+        }
+
+        function hideLoadingState() {
+            const loadingDiv = document.getElementById('loading-overlay');
+            if (loadingDiv) {
+                loadingDiv.remove();
+            }
+        }
+
+        function showInfo(message) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'alert alert-info alert-dismissible fade show position-fixed';
+            alertDiv.style.cssText = 'top: 20px; right: 20px; z-index: 9998; max-width: 400px;';
+            alertDiv.setAttribute('role', 'alert');
+            alertDiv.innerHTML = `
+                <i class="fas fa-info-circle me-2" aria-hidden="true"></i>
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close info message"></button>
+            `;
+            document.body.appendChild(alertDiv);
+            announceToScreenReader(`Information: ${message}`);
+
             setTimeout(() => {
-                alertElement.classList.add('hidden');
+                if (alertDiv && alertDiv.parentNode) {
+                    alertDiv.remove();
+                }
+            }, 10000);
+        }
+
+        function showError(message) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'alert alert-danger alert-dismissible fade show position-fixed';
+            alertDiv.style.cssText = 'top: 20px; right: 20px; z-index: 9998; max-width: 400px;';
+            alertDiv.setAttribute('role', 'alert');
+            alertDiv.innerHTML = `
+                <i class="fas fa-exclamation-triangle me-2" aria-hidden="true"></i>
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close error message"></button>
+            `;
+            document.body.appendChild(alertDiv);
+            announceToScreenReader(`Error: ${message}`);
+
+            setTimeout(() => {
+                if (alertDiv && alertDiv.parentNode) {
+                    alertDiv.remove();
+                }
+            }, 8000);
+        }
+
+        function showSuccess(message) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'alert alert-success alert-dismissible fade show position-fixed';
+            alertDiv.style.cssText = 'top: 20px; right: 20px; z-index: 9998; max-width: 400px;';
+            alertDiv.setAttribute('role', 'alert');
+            alertDiv.innerHTML = `
+                <i class="fas fa-check-circle me-2" aria-hidden="true"></i>
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close success message"></button>
+            `;
+            document.body.appendChild(alertDiv);
+            announceToScreenReader(`Success: ${message}`);
+
+            setTimeout(() => {
+                if (alertDiv && alertDiv.parentNode) {
+                    alertDiv.remove();
+                }
             }, 5000);
         }
-    }
 
-    function hideAlert(elementId) {
-        const alertElement = document.getElementById(elementId);
-        if (alertElement) {
-            alertElement.classList.add('hidden');
-        }
-    }
-
-    function hideAllAlerts() {
-        const alerts = document.querySelectorAll('.alert');
-        alerts.forEach(alert => alert.classList.add('hidden'));
-    }
-
-    function formatDate(dateString) {
-        if (!dateString) return 'N/A';
-        try {
-            const date = new Date(dateString);
-            return isNaN(date.getTime()) ? 'N/A' : date.toLocaleDateString('en-GB');
-        } catch (e) {
-            return 'N/A';
-        }
-    }
-
-    function escapeHtml(text) {
-        if (!text) return '';
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-    }
-
-    function loadReportsData() {
-        generateReport('specialists');
-    }
-
-    // Form validation
-    function validateForm(formElement) {
-        const requiredFields = formElement.querySelectorAll('[required]');
-        let isValid = true;
-        
-        requiredFields.forEach(field => {
-            if (!field.value.trim()) {
-                field.style.borderColor = 'var(--danger)';
-                isValid = false;
-            } else {
-                field.style.borderColor = 'var(--border)';
+        // ================================
+        // Event Listeners
+        // ================================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize accessibility features
+            initializeAccessibility();
+            
+            // Load initial data
+            loadDashboardData();
+            
+            // Set up refresh button
+            const refreshButton = document.getElementById('refresh-dashboard');
+            if (refreshButton) {
+                refreshButton.addEventListener('click', function() {
+                    loadDashboardData();
+                    announceToScreenReader('Refreshing dashboard data');
+                });
+            }
+            
+            // Set up month/year change handlers
+            const monthSelect = document.getElementById('month-select');
+            const yearSelect = document.getElementById('year-select');
+            
+            if (monthSelect) {
+                monthSelect.addEventListener('change', function() {
+                    renderDashboard();
+                    announceToScreenReader(`Changed to ${this.value}`);
+                });
+            }
+            
+            if (yearSelect) {
+                yearSelect.addEventListener('change', function() {
+                    renderDashboard();
+                    announceToScreenReader(`Changed to ${this.value}`);
+                });
+            }
+            
+            // Set up vacancy highlighting
+            const highlightCheckbox = document.getElementById('highlight-vacancies');
+            if (highlightCheckbox) {
+                highlightCheckbox.addEventListener('change', function() {
+                    const tableRows = document.querySelectorAll('#dashboard-table-body tr.table-danger');
+                    tableRows.forEach(row => {
+                        row.classList.toggle('table-danger', this.checked);
+                    });
+                    announceToScreenReader(`Vacancy highlighting ${this.checked ? 'enabled' : 'disabled'}`);
+                });
             }
         });
-        
-        return isValid;
-    }
 
-    // Initialize form validation
-    document.addEventListener('DOMContentLoaded', function() {
-        const forms = document.querySelectorAll('form');
-        forms.forEach(form => {
-            form.addEventListener('submit', function(e) {
-                if (!validateForm(form)) {
-                    e.preventDefault();
-                    const alertId = form.id.replace('-form', '-alert');
-                    showAlert(alertId, 'Please fill in all required fields', 'error');
-                }
-            });
+        // ================================
+        // Error Handling
+        // ================================
+        window.addEventListener('error', function(event) {
+            console.error('Global error:', event.error);
+            showError('An unexpected error occurred. Please refresh the page.');
         });
-    });
 
-    // Auto-save functionality
-    function setupAutoSave() {
-        const forms = document.querySelectorAll('form');
-        forms.forEach(form => {
-            const inputs = form.querySelectorAll('input, select, textarea');
-            inputs.forEach(input => {
-                input.addEventListener('input', function() {
-                    const formId = form.id;
-                    const fieldName = input.name;
-                    const value = input.value;
-                    
-                    if (formId && fieldName && input.type !== 'password') {
-                        sessionStorage.setItem(`${formId}_${fieldName}`, value);
-                    }
-                });
-            });
+        window.addEventListener('unhandledrejection', function(event) {
+            console.error('Unhandled promise rejection:', event.reason);
+            showError('A network error occurred. Please check your connection.');
         });
-    }
-
-    function restoreFormData() {
-        const forms = document.querySelectorAll('form');
-        forms.forEach(form => {
-            const inputs = form.querySelectorAll('input, select, textarea');
-            inputs.forEach(input => {
-                const formId = form.id;
-                const fieldName = input.name;
-                
-                if (formId && fieldName && input.type !== 'password') {
-                    const savedValue = sessionStorage.getItem(`${formId}_${fieldName}`);
-                    if (savedValue) {
-                        input.value = savedValue;
-                    }
-                }
-            });
-        });
-    }
-
-    // Initialize auto-save and restore
-    document.addEventListener('DOMContentLoaded', function() {
-        setupAutoSave();
-        restoreFormData();
-    });
     </script>
-
 </body>
 </html>
-
-
